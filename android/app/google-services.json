@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "35989941029",
+    "project_id": "njadia-15ffd",
+    "storage_bucket": "njadia-15ffd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35989941029:android:9c6ab3926c439bdcdb48cc",
+        "android_client_info": {
+          "package_name": "com.example.njadia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35989941029-342ppvdsvf1utbr0l0ql61nvphag0rgo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADcSwvj5j3681VeT-LWvxsN1q4CXFF9Ck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35989941029-342ppvdsvf1utbr0l0ql61nvphag0rgo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "35989941029-2g4knr16679lmm159m4qnhbqe41ibr66.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.njadia"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
