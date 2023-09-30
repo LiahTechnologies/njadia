@@ -46,6 +46,7 @@ dependencies:
   get: ^4.6.5
   google_fonts: ^5.1.0
   shared_preferences: ^2.2.0
+  dotted_border: ^2.1.0
 
 
 dev_dependencies:

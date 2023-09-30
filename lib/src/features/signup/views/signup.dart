@@ -294,7 +294,11 @@ class _SignupState extends State<Signup> {
                             style: AppFonts.textItalic,
                           )),
                       TextButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.previousPage(
+                                duration: const Duration(seconds: 1),
+                                curve: Curves.easeInOut);
+                          },
                           icon: const Icon(
                             Icons.edit,
                             color: Color(0xff1FAF67),
@@ -479,7 +483,7 @@ class _SignupState extends State<Signup> {
                         duration: const Duration(seconds: 1),
                         curve: Curves.easeInOut),
                     text: "Take a selfie hold ID",
-                    height: 60.h,
+                    height: 50.h,
                     width: 350.w,
                     icon: Icons.arrow_forward_ios_outlined,
                     image: "assets/images/camera_mask.png",
@@ -488,13 +492,13 @@ class _SignupState extends State<Signup> {
                     height: 20.h,
                   ),
                   CustomButton(
-                    onPress: () => Get.toNamed(AppRoutes.chatSignUp),
+                    onPress: () => Get.toNamed(AppRoutes.CHAT_SIGNUP),
 
                     // controller.nextPage(
                     // duration: const Duration(seconds: 1),
                     // curve: Curves.easeInOut),
                     text: "Add a photo ID",
-                    height: 60.h,
+                    height: 50.h,
                     width: 350.w,
                     icon: Icons.arrow_forward_ios_outlined,
                     image: "assets/images/nid.png",
@@ -507,6 +511,7 @@ class _SignupState extends State<Signup> {
                         isActive: false,
                         onPress: () {},
                         text: "Continue",
+                        height: 50.h,
                       ),
                     ),
                   ),
@@ -554,6 +559,9 @@ class _SignupState extends State<Signup> {
                       text: "Make sure you're well lit"),
                   const ImageRequirementWidget(
                       text: "Be sure that your ID is visible"),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Container(
@@ -596,7 +604,19 @@ class _SignupState extends State<Signup> {
                             onPressed: () => controller.previousPage(
                                 duration: const Duration(seconds: 1),
                                 curve: Curves.easeInOut),
-                            child: Text("Back", style: AppFonts.buttonColor))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(
+                                  Icons.arrow_back,
+                                  color: AppColor.whiteColor,
+                                ),
+                                Text("Back", style: AppFonts.buttonColor),
+                              ],
+                            ))),
+                  ),
+                  Container(
+                    height: 300.h,
                   ),
                   Container(
                       margin: EdgeInsets.only(left: 30.w, top: 10.h),
@@ -612,6 +632,9 @@ class _SignupState extends State<Signup> {
                               text: "Make sure your face is showing"),
                         ],
                       )),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
@@ -802,9 +825,10 @@ class _SignupState extends State<Signup> {
                           borderRadius: BorderRadius.circular(15)),
                       child: MaterialButton(
                         onPressed: () {
-                          Get.toNamed(AppRoutes.createGroup);
+                          Get.toNamed(AppRoutes.HOMEpAGE);
                         },
-                        child: Text("Open Camera", style: AppFonts.buttonColor),
+                        child:
+                            Text("Upload a photo", style: AppFonts.buttonColor),
                       ),
                     ),
                   )

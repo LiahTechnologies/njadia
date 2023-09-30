@@ -1,112 +1,133 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:njadia/src/utils/CustomButton.dart';
-import 'package:njadia/src/routing/approutes.dart';
+import 'package:njadia/src/utils/customInput.dart';
 import 'package:njadia/src/utils/themes/style/appAsset.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
-import 'package:njadia/src/utils/themes/style/color.dart';
-import 'package:njadia/src/features/group_chat/presentation/view/add_contact.dart';
 
-class createGroup extends StatefulWidget {
-  const createGroup({super.key});
+import '../../../../utils/CustomButton.dart';
+import '../../../../utils/themes/style/appfont.dart';
+import '../../../../utils/themes/style/color.dart';
 
-  @override
-  State<createGroup> createState() => _createGroupState();
-}
+class CreateGroup extends StatelessWidget {
+  const CreateGroup({super.key});
 
-class _createGroupState extends State<createGroup> {
-  final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 10.h),
-          child: Row(
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Image.asset(AppImages.CREATE_GROUP_ICON),
-                      IconButton(
-                          onPressed: () =>
-                              Get.toNamed(AppRoutes.createGroupTemplate),
-                          icon: const Icon(
-                            Icons.add,
-                            color: AppColor.greenColor,
-                            size: 35,
-                          )),
-                      Image.asset(AppImages.JOIN_GROUP_ICON)
-                    ],
-                  )),
-              Expanded(
-                flex: 4,
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Direct Messages",
-                        style: AppFonts.heading2,
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w),
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: TextButton.icon(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: AppColor.greenColor,
                       ),
-                      Container(
-                        margin: EdgeInsets.only(bottom: 10.h),
-                        child: TextField(
-                          controller: searchController,
-                          decoration: const InputDecoration(
-                              hintText: "Find or Start a conversation",
-                              border: InputBorder.none,
-                              suffixIcon: Icon(Icons.search)),
-                        ),
-                      ),
-                      Image.asset(AppImages.GROUP_DEFAULT_ICON),
-                      Text(
-                        "Find your friends",
-                        style: AppFonts.heading1,
-                      ),
-                      Text(
-                        "sync your contacts and start chatting",
-                        style: AppFonts.defaultFonts3,
-                      ),
-                      CustomButton(
-                        onPress: () {
-                          // Get.toNamed(AppRoutes.addContacts);
-                          Get.bottomSheet(AddContacts(),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                              )),
-                              enableDrag: true,
-                              isScrollControlled: true);
-                        },
-                        text: "Get Start",
-                        width: 250.w,
-                        icon: null,
-                      ),
-                    ],
-                  ),
+                      label: Text(
+                        "Back",
+                        style: AppFonts.defaultFonts,
+                      )),
                 ),
-              ),
-            ],
+                Text("Create your Njangi group", style: AppFonts.heading2),
+                Text(
+                  "Begin your collective saving journey, hangout and and",
+                  style: AppFonts.defaultFonts,
+                ),
+                Text(
+                  "experience the power of communal finance",
+                  style: AppFonts.defaultFonts,
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Container(
+                  width: 140.w,
+                  margin: EdgeInsets.symmetric(horizontal: 30.w),
+                  child: Stack(children: [
+                    DottedBorder(
+                        strokeWidth: 2,
+                        borderType: BorderType.Circle,
+                        radius: Radius.circular(70),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: CircleAvatar(
+                              radius: 50.w,
+                              backgroundImage: AssetImage(AppImages.PERSON),
+                            ))),
+                    Positioned(
+                        right: 25.w,
+                        top: 3.h,
+                        child: Container(
+                          width: 35.w,
+                          height: 35.h,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: Colors.black),
+                          child: Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 25.w,
+                          ),
+                        ))
+                  ]),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                CustomInput(
+                  text: "NJANGI NAME",
+                  controller: (value) {},
+                  hint: "Ekondo Titi Njangi",
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomInput(
+                      text: "MEMBERS LIMIT",
+                      controller: (value) {},
+                      hint: "50",
+                      width: 140,
+                    ),
+                    CustomInput(
+                      text: "CONTRIBUTION AMOUNT",
+                      controller: (value) {},
+                      hint: "25,000XAF",
+                      width: 200,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 150.h,
+                ),
+                Text.rich(TextSpan(children: [
+                  TextSpan(
+                      text: "By creating a server, you agree to Njadia's",
+                      style: AppFonts.defaultFonts3.copyWith(fontSize: 11)),
+                  TextSpan(
+                      text: " community guidelines",
+                      style: AppFonts.defaultFontsBold3),
+                ])),
+                SizedBox(
+                  height: 10.h,
+                ),
+                CustomButton(
+                  onPress: () {},
+                  text: "Create Njangi",
+                  icon: null,
+                  border: 12,
+                  width: 290.w,
+                )
+              ],
+            ),
           ),
-        ),
-        bottomNavigationBar: BottomAppBar(
-            child: Container(
-          color: AppColor.greenColor,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Image.asset(AppImages.DASHBOARD_GROUp_ICON),
-              Image.asset(AppImages.TWO_PEOPLE_ICON),
-              Image.asset(AppImages.NOTIFICATION_ICON),
-              Image.asset(AppImages.FACE_ICON),
-            ],
-          ),
-        )),
-      ),
-    );
+        ));
   }
 }

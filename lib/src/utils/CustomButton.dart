@@ -14,7 +14,7 @@ class CustomButton extends StatelessWidget {
     this.height = 0,
     this.width = 0,
     this.isActive = true,
-    this.border = 25,
+    this.border = 12,
   });
   final VoidCallback onPress;
   final String text;

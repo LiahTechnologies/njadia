@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:njadia/src/features/group_chat/presentation/widgets/custom_card_items.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
 import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/utils/themes/style/appfont.dart';
 
 import '../../../../utils/themes/style/appAsset.dart';
 
-class GroupTemplate extends StatelessWidget {
-  const GroupTemplate({super.key});
+class GroupTemplateOption extends StatelessWidget {
+  const GroupTemplateOption({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,13 @@ class GroupTemplate extends StatelessWidget {
             ),
 
             SizedBox(height: 10.h),
-            cardListTileWidget(
-                image: AppImages.WORLD_ICON, text: "create my own "),
+            CustomCardItems(
+              image: AppImages.WORLD_ICON,
+              text: "create my own ",
+              onTap: () {
+                Get.toNamed(AppRoutes.GROUP_CATEGORYg);
+              },
+            ),
             SizedBox(height: 10.h),
             Align(
                 alignment: Alignment.centerLeft,
@@ -45,49 +51,52 @@ class GroupTemplate extends StatelessWidget {
                 )),
             SizedBox(height: 10.h),
 
-            cardListTileWidget(
-                image: AppImages.WORLD1_ICON, text: "Famers Njangi "),
-            cardListTileWidget(
-                image: AppImages.WORLD2_ICON, text: "Smaill Businesses "),
-            cardListTileWidget(image: AppImages.WORLD_ICON, text: "Friends"),
-            cardListTileWidget(image: AppImages.WORLD3_ICON, text: "Friends "),
+            CustomCardItems(
+              image: AppImages.WORLD1_ICON,
+              text: "Famers Njangi ",
+              onTap: () {},
+            ),
+            CustomCardItems(
+              image: AppImages.WORLD2_ICON,
+              text: "Smaill Businesses ",
+              onTap: () {},
+            ),
+            CustomCardItems(
+              image: AppImages.WORLD_ICON,
+              text: "Friends",
+              onTap: () {},
+            ),
+            CustomCardItems(
+              image: AppImages.WORLD3_ICON,
+              text: "Friends ",
+              onTap: () {},
+            ),
 
-            // cardListTileWidget(
+            // CustomCardItems(
             // image: AppImages.WORLD4_ICON, text: "Local Community "),
 
-            cardListTileWidget(
-                image: AppImages.WORLD5_ICON, text: "Local Community "),
+            CustomCardItems(
+              image: AppImages.WORLD5_ICON,
+              text: "Local Community ",
+              onTap: () {},
+            ),
             SizedBox(height: 30.h),
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Text("Have an invitation?", style: AppFonts.heading3),
             ),
 
-          
-          
-          
-          
-          
-          
-          
-          
+            CustomButton(
+              onPress: () {
+                Get.toNamed(AppRoutes.JOINGROUP);
+              },
+              text: "Join Njangi",
+              icon: null,
+              width: 250.w,
+              border: 12,
+            )
           ],
         ),
-      ),
-    ));
-  }
-
-  cardListTileWidget({image, text}) {
-    return Card(
-        child: SizedBox(
-      height: 60.h,
-      child: ListTile(
-        leading: Image.asset(
-          image,
-          width: 30,
-        ),
-        title: Text(text),
-        trailing: Icon(Icons.arrow_forward_ios_outlined),
       ),
     ));
   }

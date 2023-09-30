@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         // GlobalCupertinoLocalizations.delegate,
       ], debugShowCheckedModeBanner: false,
             getPages: AppPages.appPagas,
-            initialRoute: AppRoutes.splashScreen,
+            initialRoute: AppRoutes.SPLASHSCREEN,
             //
           );
         });
@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 7), () {
-      Get.offAndToNamed(AppRoutes.onBoardingScreen);
+      Get.offAndToNamed(AppRoutes.ONBOARDING);
     });
     super.initState();
   }

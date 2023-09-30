@@ -1,5 +1,5 @@
 class AppImages {
-  static const CREATE_GROUP_ICON = 'assets/images/Group_icon.png';
+  static const DM_ICON = 'assets/images/Group_icon.png';
   static const JOIN_GROUP_ICON = 'assets/images/join_group.png';
   static const GROUP_DEFAULT_ICON = 'assets/images/chat_default.png';
   static const DASHBOARD_GROUp_ICON = 'assets/images/group_dashboard.png';
@@ -12,5 +12,16 @@ class AppImages {
   static const WORLD3_ICON = 'assets/images/world3.png';
   static const WORLD4_ICON = 'assets/images/world4.png';
   static const WORLD5_ICON = 'assets/images/world5.png';
-  static const PERSON       = 'assets/images/Ellipse 34.png';
+  static const PERSON = 'assets/images/Ellipse 34.png';
+  static const ORANGE = 'assets/images/orange.png';
+  static const MTP = 'assets/images/mtn.png';
+  static const VOICE_RECORD = 'assets/images/voice_record.png';
+  static const ADD_MEMBER_LINK_ICON = 'assets/images/record (3).png';
+  static const GROUP_MENU_ICON = 'assets/images/record (4).png';
+  static const PROCESSING_ICON = 'assets/images/Group 73.png';
+  static const DONE__ICON = 'assets/images/Cap04.png';
+  static const SEND_ICON = 'assets/images/akar-icons_send.png';
+  static const UPLOAD_GROUP_ICON = 'assets/images/Upload group ICon.png';
+  static const INVITE_ICON = 'assets/images/invite icon.png';
+  static const ENVELOP_INVITE_ICON = 'assets/images/Envelop invite.png';
 }

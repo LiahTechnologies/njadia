@@ -164,7 +164,7 @@ class OnBoardingScreens extends StatelessWidget {
                     ? () => controller.nextPage(
                         duration: const Duration(seconds: 1),
                         curve: Curves.easeInOut)
-                    : () => Get.toNamed(AppRoutes.signUp),
+                    : () => Get.toNamed(AppRoutes.SIGNUP),
                 text: "NEXT",
               ))
         ],
