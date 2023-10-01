@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
-import 'package:njadia/src/utils/themes/style/color.dart';
+import 'package:njadia/src/constants/style/appfont.dart';
+import 'package:njadia/src/constants/style/color.dart';
 
 class JoinGroup extends StatelessWidget {
   JoinGroup({super.key});
@@ -86,11 +87,13 @@ class JoinGroup extends StatelessWidget {
               height: 10.h,
             ),
             CustomButton(
-              onPress: () {},
+              onPress: () {
+                Get.toNamed(AppRoutes.ADDCONTACT);
+              },
               text: "Join Njangi",
               width: 300.w,
               icon: null,
-              border: 10,
+              borderRadius: 10,
             )
           ],
         ),

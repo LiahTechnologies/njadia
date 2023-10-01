@@ -7,8 +7,8 @@ import 'package:njadia/chat/services/authservice.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
 
 import 'package:njadia/src/routing/approutes.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
-import 'package:njadia/src/utils/themes/style/color.dart';
+import 'package:njadia/src/constants/style/appfont.dart';
+import 'package:njadia/src/constants/style/color.dart';
 import 'package:njadia/src/features/signup/widgets/imageRequirement.dart';
 import 'package:njadia/src/features/signup/widgets/radioWidget.dart';
 import 'package:njadia/src/features/signup/widgets/signupInputDetails.dart';

@@ -16,7 +16,7 @@ class AppImages {
   static const ORANGE = 'assets/images/orange.png';
   static const MTP = 'assets/images/mtn.png';
   static const VOICE_RECORD = 'assets/images/voice_record.png';
-  static const ADD_MEMBER_LINK_ICON = 'assets/images/record (3).png';
+  static const ADD_MEMBER_LINK_ICON = 'assets/images/add_link.png';
   static const GROUP_MENU_ICON = 'assets/images/record (4).png';
   static const PROCESSING_ICON = 'assets/images/Group 73.png';
   static const DONE__ICON = 'assets/images/Cap04.png';
@@ -24,4 +24,6 @@ class AppImages {
   static const UPLOAD_GROUP_ICON = 'assets/images/Upload group ICon.png';
   static const INVITE_ICON = 'assets/images/invite icon.png';
   static const ENVELOP_INVITE_ICON = 'assets/images/Envelop invite.png';
+  static const NJANGI_ICON = 'assets/images/Njangi Icon.png';
+  static const LINK_ICON = 'assets/images/record (2).png';
 }

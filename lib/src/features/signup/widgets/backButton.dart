@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../utils/themes/style/appfont.dart';
-import '../../../utils/themes/style/color.dart';
+import '../../../constants/style/appfont.dart';
+import '../../../constants/style/color.dart';
+
 
 class BackButton extends StatelessWidget {
  BackButton({super.key});

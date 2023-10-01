@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'themes/style/color.dart';
+import '../constants/style/color.dart';
 
 class CustomDots extends StatelessWidget {
   const CustomDots({super.key, required this.index,required this.position});

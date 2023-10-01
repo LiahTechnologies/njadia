@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:njadia/src/features/group_chat/presentation/widgets/custom_card_items.dart';
 import 'package:njadia/src/routing/approutes.dart';
-import 'package:njadia/src/utils/themes/style/appAsset.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
-import 'package:njadia/src/utils/themes/style/color.dart';
+import 'package:njadia/src/utils/CustomButton.dart';
+import 'package:njadia/src/utils/customGetxButtomSheet.dart';
+import 'package:njadia/src/constants/style/appAsset.dart';
+import 'package:njadia/src/constants/style/appfont.dart';
+import 'package:njadia/src/constants/style/color.dart';
 
 class GroupMenuPage extends StatelessWidget {
   const GroupMenuPage({super.key});
@@ -26,7 +28,9 @@ class GroupMenuPage extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            customGetxBottomsheet(menuClicked());
+                          },
                           icon: Icon(
                             Icons.menu_outlined,
                             color: AppColor.greenColor,
@@ -46,7 +50,9 @@ class GroupMenuPage extends StatelessWidget {
                             color: AppColor.greenColor,
                           )),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            customGetxBottomsheet(personClicked());
+                          },
                           icon: Icon(
                             Icons.person_outline,
                             color: AppColor.greenColor,
@@ -123,6 +129,95 @@ class GroupMenuPage extends StatelessWidget {
           ),
         ),
       )),
+    );
+  }
+
+  menuClicked() {
+    return Container(
+      child: Column(children: [
+        SizedBox(
+          height: 20.h,
+        ),
+        Image.asset(AppImages.NJANGI_ICON),
+        Text(
+          "Finish setting up your njangi group",
+          style: AppFonts.heading3,
+        ),
+        Text.rich(TextSpan(children: [
+          TextSpan(text: "you have completed", style: AppFonts.defaultFonts),
+          TextSpan(text: " 0 of 3 steps", style: AppFonts.defaultFontsBold3)
+        ])),
+        CustomCardItems(
+            image: AppImages.GROUP_DEFAULT_ICON,
+            text: "Invit your members",
+            onTap: () {}),
+        CustomCardItems(
+            image: AppImages.UPLOAD_GROUP_ICON,
+            text: "Upload a Group icon",
+            onTap: () {}),
+        CustomCardItems(
+            image: AppImages.ENVELOP_INVITE_ICON,
+            text: "Send your first message",
+            onTap: () {}),
+        Text(
+          "skip these step",
+          style: AppFonts.defaultFonts,
+        )
+      ]),
+    );
+  }
+
+  personClicked() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            AppImages.ENVELOP_INVITE_ICON,
+          ),
+          Text(
+            "Invit your members to this njangi",
+            style: AppFonts.heading3,
+          ),
+          Text(
+            "share this link with your members and they'll  ",
+            style: AppFonts.defaultFonts,
+          ),
+          Text(
+            "automatically join your Njangi",
+            style: AppFonts.defaultFonts,
+          ),
+          Container(
+            child: TextField(
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    suffixIcon: Image.asset(AppImages.LINK_ICON),
+                    hintText: "https://njadia.liah/URtaJK8F")),
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Expires in 7days",
+              style: AppFonts.defaultFonts.copyWith(fontSize: 15),
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          CustomButton(
+            onPress: () {},
+            text: "Share link",
+            icon: null,
+            width: 300,
+          )
+        ],
+      ),
     );
   }
 }

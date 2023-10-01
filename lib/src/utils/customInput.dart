@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
+import 'package:njadia/src/constants/style/appfont.dart';
 
 class CustomInput extends StatelessWidget {
   const CustomInput(

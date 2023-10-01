@@ -2,12 +2,13 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/utils/customInput.dart';
-import 'package:njadia/src/utils/themes/style/appAsset.dart';
+import 'package:njadia/src/constants/style/appAsset.dart';
 
 import '../../../../utils/CustomButton.dart';
-import '../../../../utils/themes/style/appfont.dart';
-import '../../../../utils/themes/style/color.dart';
+import '../../../../constants/style/appfont.dart';
+import '../../../../constants/style/color.dart';
 
 class CreateGroup extends StatelessWidget {
   const CreateGroup({super.key});
@@ -119,10 +120,12 @@ class CreateGroup extends StatelessWidget {
                   height: 10.h,
                 ),
                 CustomButton(
-                  onPress: () {},
+                  onPress: () {
+                    Get.toNamed(AppRoutes.ADD_USERS_LINK);
+                  },
                   text: "Create Njangi",
                   icon: null,
-                  border: 12,
+                  borderRadius: 12,
                   width: 290.w,
                 )
               ],

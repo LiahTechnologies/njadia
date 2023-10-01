@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:njadia/src/features/group_chat/presentation/widgets/custom_card_items.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
 import 'package:njadia/src/routing/approutes.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
+import 'package:njadia/src/constants/style/appfont.dart';
 
-import '../../../../utils/themes/style/appAsset.dart';
+import '../../../../constants/style/appAsset.dart';
 
 class GroupTemplateOption extends StatelessWidget {
   const GroupTemplateOption({super.key});
@@ -93,7 +93,7 @@ class GroupTemplateOption extends StatelessWidget {
               text: "Join Njangi",
               icon: null,
               width: 250.w,
-              border: 12,
+              borderRadius: 12,
             )
           ],
         ),

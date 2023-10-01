@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
-import 'package:njadia/src/utils/themes/style/appAsset.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
-import 'package:njadia/src/utils/themes/style/color.dart';
+import 'package:njadia/src/constants/style/appAsset.dart';
+import 'package:njadia/src/constants/style/appfont.dart';
+import 'package:njadia/src/constants/style/color.dart';
 
 class SendMoneyDetail extends StatelessWidget {
   SendMoneyDetail(

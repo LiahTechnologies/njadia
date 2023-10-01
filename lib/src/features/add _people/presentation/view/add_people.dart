@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
-import 'package:njadia/src/utils/themes/style/appAsset.dart';
-import 'package:njadia/src/utils/themes/style/color.dart';
+import 'package:njadia/src/constants/style/appAsset.dart';
+import 'package:njadia/src/constants/style/color.dart';
+import 'package:njadia/src/warnings/customeNotification.dart';
 
-import '../../../../utils/themes/style/appfont.dart';
+import '../../../../constants/style/appfont.dart';
 
 class AddUserLink extends StatelessWidget {
   final TextEditingController linkController = TextEditingController();
@@ -43,7 +44,7 @@ class AddUserLink extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10.h),
-                  child: Image.asset(AppImages.PERSON),
+                  child: Image.asset(AppImages.ADD_MEMBER_LINK_ICON),
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 10.h, top: 10.h),
@@ -68,7 +69,9 @@ class AddUserLink extends StatelessWidget {
                   height: 20.h,
                 ),
                 CustomButton(
-                  onPress: () {},
+                  onPress: () {
+                    Get.dialog(CustomNotification());
+                  },
                   text: "Share Link",
                   icon: null,
                   width: 300,

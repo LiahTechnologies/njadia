@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:njadia/src/utils/themes/style/color.dart';
+import 'package:njadia/src/constants/style/color.dart';
 
-import '../../../utils/themes/style/appfont.dart';
+import '../../../constants/style/appfont.dart';
 
 class SignUpDetails extends StatelessWidget {
   const SignUpDetails(

@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:njadia/src/features/group_home_page/presentation/view/group_home_page.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
 import 'package:njadia/src/routing/approutes.dart';
-import 'package:njadia/src/utils/themes/style/appAsset.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
-import 'package:njadia/src/utils/themes/style/color.dart';
+import 'package:njadia/src/constants/style/appAsset.dart';
+import 'package:njadia/src/constants/style/appfont.dart';
+import 'package:njadia/src/constants/style/color.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/add_group_contact.dart';
 
 class HomePage extends StatefulWidget {

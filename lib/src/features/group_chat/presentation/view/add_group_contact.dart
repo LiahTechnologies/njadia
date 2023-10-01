@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
-import 'package:njadia/src/utils/themes/style/appAsset.dart';
-import 'package:njadia/src/utils/themes/style/appfont.dart';
+import 'package:njadia/src/constants/style/appAsset.dart';
+import 'package:njadia/src/constants/style/appfont.dart';
 
 import '../../../../routing/approutes.dart';
 
@@ -25,7 +25,7 @@ class _AddContactsState extends State<AddContacts> {
         child: Column(
           children: [
             SizedBox(
-              height: 50.h,
+              height: 20.h,
             ),
             Align(
                 alignment: Alignment.topLeft,
@@ -50,7 +50,7 @@ class _AddContactsState extends State<AddContacts> {
               ),
             ),
             Container(
-              height: 470.h,
+              height: 450.h,
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: 2,
@@ -64,7 +64,7 @@ class _AddContactsState extends State<AddContacts> {
               onPress: () {},
               text: "Send friend request",
               icon: null,
-              border: 10,
+              borderRadius: 10,
               width: 280.w,
             )
           ],

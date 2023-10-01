@@ -61,23 +61,24 @@ class _ChatGroupHomeState extends State<ChatGroupHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 0,
-          title: const Text("Groups"),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  nextScreen(context, const searchPage());
-                },
-                icon: const Icon(Icons.search))
-          ],
-        ),
-        body: grouplist(),
-
-        floatingActionButton: FloatingActionButton(onPressed: popupDialogue,child:const Icon(Icons.add_outlined),),
-        
-        );
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: const Text("Groups"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                nextScreen(context, const searchPage());
+              },
+              icon: const Icon(Icons.search))
+        ],
+      ),
+      body: grouplist(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: popupDialogue,
+        child: const Icon(Icons.add_outlined),
+      ),
+    );
   }
 
   popupDialogue() {
@@ -145,9 +146,11 @@ class _ChatGroupHomeState extends State<ChatGroupHome> {
                       var reverseIndex =
                           snapshot.data['groups'].length - index - 1;
                       return GroupTile(
-                          groupName: getName(snapshot.data['groups'][reverseIndex]),
+                          groupName:
+                              getName(snapshot.data['groups'][reverseIndex]),
                           userName: snapshot.data['fullname'],
-                          groupid: getId(snapshot.data['groups'][reverseIndex]));
+                          groupid:
+                              getId(snapshot.data['groups'][reverseIndex]));
                     });
               } else {
                 return noGroupWidget();
