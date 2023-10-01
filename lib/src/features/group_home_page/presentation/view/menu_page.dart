@@ -168,55 +168,57 @@ class GroupMenuPage extends StatelessWidget {
   }
 
   personClicked() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            AppImages.ENVELOP_INVITE_ICON,
-          ),
-          Text(
-            "Invit your members to this njangi",
-            style: AppFonts.heading3,
-          ),
-          Text(
-            "share this link with your members and they'll  ",
-            style: AppFonts.defaultFonts,
-          ),
-          Text(
-            "automatically join your Njangi",
-            style: AppFonts.defaultFonts,
-          ),
-          Container(
-            child: TextField(
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    suffixIcon: Image.asset(AppImages.LINK_ICON),
-                    hintText: "https://njadia.liah/URtaJK8F")),
-          ),
-          SizedBox(
-            height: 5.h,
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Expires in 7days",
-              style: AppFonts.defaultFonts.copyWith(fontSize: 15),
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              AppImages.ENVELOP_INVITE_ICON,
             ),
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          CustomButton(
-            onPress: () {},
-            text: "Share link",
-            icon: null,
-            width: 300,
-          )
-        ],
+            Text(
+              "Invit your members to this njangi",
+              style: AppFonts.heading3,
+            ),
+            Text(
+              "share this link with your members and they'll  ",
+              style: AppFonts.defaultFonts,
+            ),
+            Text(
+              "automatically join your Njangi",
+              style: AppFonts.defaultFonts,
+            ),
+            Container(
+              child: TextField(
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      suffixIcon: Image.asset(AppImages.LINK_ICON),
+                      hintText: "https://njadia.liah/URtaJK8F")),
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Expires in 7days",
+                style: AppFonts.defaultFonts.copyWith(fontSize: 15),
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            CustomButton(
+              onPress: () {},
+              text: "Share link",
+              icon: null,
+              width: 300,
+            )
+          ],
+        ),
       ),
     );
   }

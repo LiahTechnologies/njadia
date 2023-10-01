@@ -5,6 +5,7 @@ customGetxBottomsheet(Widget child,
     {bool? enbaleDrag = false, bool? isDismissable = true}) {
   return Get.bottomSheet(
       Scaffold(
+        resizeToAvoidBottomInset: false,
         body: child,
       ),
       enableDrag: enbaleDrag!,
