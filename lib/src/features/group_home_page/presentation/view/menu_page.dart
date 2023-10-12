@@ -147,22 +147,27 @@ class GroupMenuPage extends StatelessWidget {
           TextSpan(text: "you have completed", style: AppFonts.defaultFonts),
           TextSpan(text: " 0 of 3 steps", style: AppFonts.defaultFontsBold3)
         ])),
+
         CustomCardItems(
             image: AppImages.GROUP_DEFAULT_ICON,
             text: "Invit your members",
             onTap: () {}),
+            
         CustomCardItems(
             image: AppImages.UPLOAD_GROUP_ICON,
             text: "Upload a Group icon",
             onTap: () {}),
+
         CustomCardItems(
             image: AppImages.ENVELOP_INVITE_ICON,
             text: "Send your first message",
             onTap: () {}),
+
         Text(
           "skip these step",
           style: AppFonts.defaultFonts,
         )
+
       ]),
     );
   }

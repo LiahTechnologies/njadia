@@ -8,10 +8,9 @@ class OTPInput extends StatelessWidget {
   final ValueChanged<String> userOTP;
 
   OTPOnchange(value, index, BuildContext context) {
-    if (value.length == 1 && index != 6) {
-      FocusScope.of(context).nextFocus();
-      userOTP(value);
-    }
+    if (value.length == 1 && index != 6) FocusScope.of(context).nextFocus();
+
+    userOTP(value);
   }
 
   @override
@@ -33,6 +32,9 @@ class OTPInput extends StatelessWidget {
         width: 6.w,
         height: 90.h,
         child: TextField(
+          // maxLength: 1,
+          autofocus: true,
+          autofillHints: List.empty(),
           onChanged: (value) => OTPOnchange(value, index, context),
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 30, color: Color(0xff1FAF67)),

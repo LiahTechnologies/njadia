@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:njadia/chat/pages/auth/grouphome.dart';
-import 'package:njadia/chat/services/authservice.dart';
+import '../../../../../../../chat/pages/auth/grouphome.dart';
+import '../../../../../../../chat/services/authservice.dart';
+import 'package:njadia/src/constants/style/color.dart';
 
-import '../../helper/helper_function.dart';
-import '../../services/databaseService.dart';
-import 'groupInfo.dart';
-import 'messageTitle.dart';
+import '../../../../common/helper_function.dart';
+import '../../../authentication/data/databaseService.dart';
+import '../widgets/messageTitle.dart';
 
 class ChatPage extends StatefulWidget {
   final String groupId;
@@ -33,13 +33,13 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   void getChatandAdmin() {
-    DatabaseService().getChats(widget.groupId).then((val) {
+    DatabaseServices().getChats(widget.groupId).then((val) {
       setState(() {
         chat = val;
       });
     });
 
-    DatabaseService().getGroupAdmin(widget.groupId).then((value) {
+    DatabaseServices().getGroupAdmin(widget.groupId).then((value) {
       setState(() {
         admin = value;
       });
@@ -55,7 +55,7 @@ class _ChatPageState extends State<ChatPage> {
           centerTitle: true,
           elevation: 0,
           title: Text(widget.groupName),
-          backgroundColor: Colors.purpleAccent,
+          backgroundColor: AppColor.greenColor,
           actions: [
             IconButton(
                 onPressed: () {
@@ -77,7 +77,7 @@ class _ChatPageState extends State<ChatPage> {
                                 )),
                             IconButton(
                                 onPressed: () {
-                                  DatabaseService(
+                                  DatabaseServices(
                                           uid: FirebaseAuth
                                               .instance.currentUser!.uid)
                                       .toggleGroupJoin(
@@ -150,10 +150,10 @@ class _ChatPageState extends State<ChatPage> {
                   itemBuilder: (context, index) {
                     // return Text(snapshot.data!.docs[index]['message']);
                     return MessageTile(
-                    message: snapshot.data!.docs[index]['message'],
-                    sender: snapshot.data!.docs[index]['sender'],
-                    sendbyMe: widget.userName ==
-                    snapshot.data!.docs[index]['sender'],
+                      message: snapshot.data!.docs[index]['message'],
+                      sender: snapshot.data!.docs[index]['sender'],
+                      sendbyMe: widget.userName ==
+                          snapshot.data!.docs[index]['sender'],
                     );
                   })
               : Container();
@@ -168,7 +168,7 @@ class _ChatPageState extends State<ChatPage> {
         "time": DateTime.now().millisecondsSinceEpoch,
       };
 
-      DatabaseService()
+      DatabaseServices()
           .sendMessage(groupId: widget.groupId, chatMessages: chatMessageMap);
       setState(() {
         messageController.clear();

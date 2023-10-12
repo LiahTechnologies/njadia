@@ -3,13 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:njadia/src/constants/style/color.dart';
 
-import '../../../constants/style/appfont.dart';
+import '../../../../../constants/style/appfont.dart';
 
 class SignUpDetails extends StatelessWidget {
   const SignUpDetails(
       {super.key,
       required this.firstNamecontroller,
-      required this.lastNamecontroller});
+      required this.lastNamecontroller,
+      
+      });
 
   final TextEditingController firstNamecontroller;
   final TextEditingController lastNamecontroller;
@@ -57,10 +59,10 @@ class SignUpDetails extends StatelessWidget {
         SizedBox(
           height: 30.h,
         ),
-        inputDetails(
-            label: "Date of Birth",
-            controller: lastNamecontroller,
-            width: Get.width),
+      
+      
+      
+      
       ],
     );
   }

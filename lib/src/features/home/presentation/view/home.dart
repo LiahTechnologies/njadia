@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,10 @@ import 'package:njadia/src/constants/style/appfont.dart';
 import 'package:njadia/src/constants/style/color.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/add_group_contact.dart';
 
+import '../../../../common/helper_function.dart';
+import '../../../authentication/data/databaseService.dart';
+import '../../../group_chat/presentation/widgets/groupTile.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -18,6 +23,49 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
+  String userName = '';
+  String userEmail = '';
+  Stream? group;
+
+  getUserData() async {
+    await HelperFunction.getUserName().then((value) {
+      setState(() {
+        userName = value;
+      });
+    });
+    await HelperFunction.getUserEmail().then((value) {
+      setState(() {
+        userEmail = value;
+      });
+    });
+    await DatabaseServices(uid: FirebaseAuth.instance.currentUser!.uid)
+        .getUserGroup()
+        .then((snapshot) {
+      setState(() {
+        group = snapshot;
+      });
+    });
+
+    print(
+        "THIS IS THE LIST OF GROUPS  ${FirebaseAuth.instance.currentUser!.uid}");
+    print(" THE NUMBE OF GROUPS IS  ${await group!.length}");
+  }
+
+  String getId(String res) {
+    return res.substring(9, res.indexOf('_'));
+  }
+
+  String getName(String res) {
+    return res.substring(res.indexOf("_") + 1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -37,28 +85,33 @@ class _HomePageState extends State<HomePage> {
                               BorderRadius.only(topRight: Radius.circular(25))),
                       child: Container(
                         padding: EdgeInsets.only(top: 10.h),
+                        height: 590.h,
                         width: double.infinity,
-                        child: Column(
-                          children: [
-                            Image.asset(AppImages.DM_ICON),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            InkWell(
-                                onTap: () {
-                                  Get.toNamed(AppRoutes.GROUP_HOME_PAGE);
-                                },
-                                child: Image.asset(AppImages.DM_ICON)),
-                            IconButton(
-                                onPressed: () => Get.toNamed(
-                                    AppRoutes.CREATE_GROUP_TEMPLATE),
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: AppColor.greenColor,
-                                  size: 35,
-                                )),
-                            Image.asset(AppImages.JOIN_GROUP_ICON)
-                          ],
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Image.asset(AppImages.DM_ICON),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              Container(
+                                width: 350.w,
+                                child: grouplist(),
+                              ),
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              IconButton(
+                                  onPressed: () => Get.toNamed(
+                                      AppRoutes.CREATE_GROUP_TEMPLATE),
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: AppColor.greenColor,
+                                    size: 35,
+                                  )),
+                              Image.asset(AppImages.JOIN_GROUP_ICON)
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -188,4 +241,60 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  grouplist() {
+    return StreamBuilder(
+        stream: group,
+        builder: (context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data['groups'] != null) {
+              if (snapshot.data['groups'].length != 0) {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data['groups'].length,
+                    itemBuilder: (context, index) {
+                      var reverseIndex =
+                          snapshot.data['groups'].length - index - 1;
+                      return GroupTile(
+                          groupName:
+                              getName(snapshot.data['groups'][reverseIndex]),
+                          userName: snapshot.data['firstName'],
+                          groupid:
+                              getId(snapshot.data['groups'][reverseIndex]));
+                    });
+              } else {
+                return Text("");
+                // return noGroupWidget();
+              }
+            } else {
+              return Text("");
+              // return noGroupWidget();
+            }
+          } else {
+            return const Center(child: Text("hello"));
+          }
+        });
+  }
+/*
+  noGroupWidget() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 25),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.add_circle,
+                  size: 22,
+                )),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+                "You have not joined any group, tap on the addicon to create a new group or also search groups")
+          ]),
+    );
+  }*/
 }

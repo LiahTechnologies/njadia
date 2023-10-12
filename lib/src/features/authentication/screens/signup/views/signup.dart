@@ -1,19 +1,33 @@
+import 'dart:io';
+import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:njadia/chat/services/authservice.dart';
+// import 'package:google_ml_kit/google_ml_kit.dart';
+// import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../../../../../../../chat/services/authservice.dart';
 
 import 'package:njadia/src/utils/CustomButton.dart';
 
 import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/constants/style/appfont.dart';
 import 'package:njadia/src/constants/style/color.dart';
-import 'package:njadia/src/features/signup/widgets/imageRequirement.dart';
-import 'package:njadia/src/features/signup/widgets/radioWidget.dart';
-import 'package:njadia/src/features/signup/widgets/signupInputDetails.dart';
+import 'package:njadia/src/features/authentication/screens/signup/widgets/imageRequirement.dart';
+import 'package:njadia/src/features/authentication/screens/signup/widgets/radioWidget.dart';
+import 'package:njadia/src/features/authentication/screens/signup/widgets/signupInputDetails.dart';
 import 'package:country_picker/country_picker.dart';
-import '../../../utils/CustomDots.dart';
+import 'package:njadia/src/utils/customInputWidget.dart';
+import 'package:njadia/src/utils/datePicker.dart';
+import '../../../../../common/helper_function.dart';
+import '../../../../../constants/style/appAsset.dart';
+import '../../../../../utils/CustomDots.dart';
+import '../../../../../utils/customButtomWithCustomICons.dart';
+import '../../../controllers/authentication_service.dart';
 import '../controller/signController.dart';
 import '../widgets/otp.dart';
 
@@ -27,24 +41,57 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  final TextEditingController numberController = TextEditingController();
-
-  // this is for signup details
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
+  final AuthService auth = AuthService();
 
   String finalUserOTP = "";
   SignController signUpController = Get.put(SignController());
 
+// controllers
+
+  final TextEditingController firstName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController dateOfBirth = TextEditingController();
+  String email = '';
+  String password = '';
+  String confirm = '';
+
   // page controller
   final controller = PageController();
-  AuthService authService = AuthService();
 
 // Checkbox state
   bool isChecked = false;
   bool isRadioChecked = false;
   String selectedCountry = '';
   String selectedCountryCode = '';
+
+// face detection
+  bool isFaceDetectorChecking = false;
+  String isSmiling = '';
+  String headRotation = '';
+  File? selectedCameraImage;
+  File? selectedCameraImageDocs;
+
+  // booleans
+
+  bool isSelfie = false;
+  bool isDocument = false;
+
+// SELECT GENDER
+  String selectedGender = "None";
+
+// seleceted Document type
+
+  int selectedDocumentType = -1;
+
+  // CameraController? cameraController;
+
+  late final AuthController = Get.put(AuthenticationServices());
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +134,38 @@ class _SignupState extends State<Signup> {
                         text: TextSpan(children: [
                       TextSpan(
                           text: "Enter your ", style: AppFonts.defaultFonts2),
-                      TextSpan(text: "Phone number", style: AppFonts.heading3),
+                      TextSpan(
+                          text: "Email & Password", style: AppFonts.heading3),
                       TextSpan(text: " Below.", style: AppFonts.defaultFonts2),
                     ])),
                   ),
                   Text(
-                      "We will send  a 4 digit code to verify your phone  number",
+                      "We will send  a 6 digit code to verify your phone  number",
                       style: AppFonts.defaultFonts2),
-                  Container(
+                  CustomInputWidget(
+                      borderRadius: 12,
+                      marginTop: 12,
+                      text: "Email",
+                      onChange: (v) {
+                        email = v;
+                      }),
+                  CustomInputWidget(
+                      borderRadius: 12,
+                      marginTop: 12,
+                      text: "Password",
+                      onChange: (v) {
+                        password = v;
+                      }),
+                  CustomInputWidget(
+                      borderRadius: 12,
+                      marginTop: 12,
+                      text: "Confirm Password",
+                      onChange: (v) {
+                        confirm = v;
+                      }),
+
+                  /*
+                 Container(
                     margin: EdgeInsets.only(top: 35.h),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
@@ -148,19 +219,79 @@ class _SignupState extends State<Signup> {
                       ],
                     ),
                   ),
+
+                  signUpFields("Name", nameController),
+                  signUpFields("Email", emailController),
+                  signUpFields("Phone", numberController),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 12.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Gender",
+                          style: AppFonts.defaultFonts,
+                        ),
+                        DropdownButton(
+                            style: AppFonts.defaultFonts,
+                            value: selectedGender,
+                            items: ['None', "Male", "Female"]
+                                .map((e) => DropdownMenuItem<String>(
+                                      child: Text(e),
+                                      value: e,
+                                    ))
+                                .toList(),
+                            onChanged: (v) {
+                              setState(() {
+                                selectedGender = v!;
+                              });
+                            }),
+                      ],
+                    ),
+                  ),
+                  signUpFields("Password", passwordController),
+                  signUpFields("Confirm Password", confirmController),
+                  
+                  Row(
+                    children: [
+                      Checkbox(
+                          value: isChecked,
+                          onChanged: (value) {
+                            setState(() {
+                              isChecked = value!;
+                            });
+                          }),
+                      Text(
+                        "I agree to the",
+                        style: AppFonts.defaultFonts3,
+                      ),
+                      Text(
+                        " Terms of service",
+                        style: AppFonts.defaultFontsBold3,
+                      ),
+                      Text(
+                        " and",
+                        style: AppFonts.defaultFonts3,
+                      ),
+                      Text(
+                        " Privacy Policy",
+                        style: AppFonts.defaultFontsBold3,
+                      ),
+                    ],
+                  ),
+                  */
                   Padding(
                     padding: EdgeInsets.only(right: 18.0, top: 20.0.h),
                     child: Align(
                       alignment: Alignment.topRight,
                       child: CustomButton(
                         onPress: () => {
-                          authService.registerWithPhoneNumber(
-                              "+237${numberController.text.trim()}", context),
+                          // AuthController.registerWithPhoneNumber("+237", context),
                           controller.nextPage(
                               duration: const Duration(seconds: 1),
                               curve: Curves.easeInOut)
                         },
-                        text: "Send OTP",
+                        text: "Next",
                       ),
                     ),
                   ),
@@ -226,9 +357,6 @@ class _SignupState extends State<Signup> {
                           setState(() {
                             finalUserOTP = finalUserOTP + "" + value;
                           });
-
-                          print("THIS IS THE VALUE OF THE INPUT DATA");
-                          // print(finalUserOTP.join());
                         },
                       ),
                       OTPInput(
@@ -261,8 +389,6 @@ class _SignupState extends State<Signup> {
                           setState(() {
                             finalUserOTP = finalUserOTP + "" + value;
                           });
-                          print("THIS IS THE VALUE OF THE INPUT DATA");
-                          print(finalUserOTP);
                         },
                       ),
                       OTPInput(
@@ -271,8 +397,6 @@ class _SignupState extends State<Signup> {
                           setState(() {
                             finalUserOTP = finalUserOTP + "" + value;
                           });
-
-                          print("OTP CODE IS $finalUserOTP");
                         },
                       ),
                     ],
@@ -282,8 +406,8 @@ class _SignupState extends State<Signup> {
                     children: [
                       TextButton.icon(
                           onPressed: () {
-                            authService.registerWithPhoneNumber(
-                                "+237${numberController.text.trim()}", context);
+                            // authService.registerWithPhoneNumber(
+                            // "+237", context);
                           },
                           icon: const Icon(
                             Icons.replay_outlined,
@@ -315,17 +439,18 @@ class _SignupState extends State<Signup> {
                       alignment: Alignment.topRight,
                       child: CustomButton(
                         onPress: () {
-                          authService
-                              .verifyOTP(
-                                  context: context,
-                                  verificationId:
-                                      signUpController.OTPcode.value,
-                                  userId: finalUserOTP)
-                              .whenComplete(() {
-                            controller.nextPage(
-                                duration: const Duration(seconds: 1),
-                                curve: Curves.easeInOut);
-                          });
+                          print("THE FINAL VERIFICATION CODE IS $finalUserOTP");
+                          // authService
+                          // .verifyOTP(
+                          // context: context,
+                          // verificationId: finalUserOTP.trim())
+                          // .whenComplete(() {
+
+                          // });
+
+                          controller.nextPage(
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.easeInOut);
                         },
                         text: "Continue",
                       ),
@@ -393,8 +518,104 @@ class _SignupState extends State<Signup> {
                     ]),
                   ),
                   SignUpDetails(
-                    firstNamecontroller: firstNameController,
-                    lastNamecontroller: lastNameController,
+                    firstNamecontroller: firstName,
+                    lastNamecontroller: lastName,
+                  ),
+                  Container(
+                    width: 350.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Date Of Birth",
+                          style: AppFonts.defaultFonts,
+                        ),
+                        SizedBox(
+                          width: 130.w,
+                          child: TextField(
+                            controller: dateOfBirth,
+                            readOnly: true,
+                            onTap: () {
+                              customDatePicker(context).then((value) {
+                                if (value != null)
+                                  dateOfBirth.text =
+                                      value!.toString().split(" ")[0];
+                              });
+                            },
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                prefixIcon: Icon(Icons.calendar_month)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Phone Number",
+                        style: AppFonts.defaultFonts,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 5.h),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: Colors.grey)),
+                        height: 50,
+                        width: double.infinity,
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 10.w),
+                              width: 120.w,
+                              child: InkWell(
+                                onTap: () {
+                                  showCountryPicker(
+                                    favorite: ['CM'],
+                                    context: context,
+                                    showPhoneCode: true,
+                                    onSelect: (Country country) {
+                                      setState(() {
+                                        selectedCountry = country.flagEmoji;
+                                        selectedCountryCode =
+                                            country.countryCode;
+                                      });
+                                      print(
+                                          'Select country: ${country.displayName} ${country.countryCode}');
+                                    },
+                                  );
+                                },
+                                child: Row(children: [
+                                  SizedBox(
+                                      width: 30.w,
+                                      child: Text(
+                                        "${selectedCountry}",
+                                        style: TextStyle(fontSize: 20),
+                                      )),
+                                  Icon(Icons.arrow_drop_down),
+                                  SizedBox(width: 40.w, child: Text("+237")),
+                                ]),
+                              ),
+                            ),
+                            Container(
+                              height: 190.h,
+                              width: 180.w,
+                              child: TextField(
+                                controller: phoneNumber,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    hintText: "phone number",
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   Row(
                     children: [
@@ -478,29 +699,57 @@ class _SignupState extends State<Signup> {
                   SizedBox(
                     height: 60.h,
                   ),
-                  CustomButton(
+                  CustomButtonWithCustomIcons(
                     onPress: () => controller.nextPage(
                         duration: const Duration(seconds: 1),
                         curve: Curves.easeInOut),
                     text: "Take a selfie hold ID",
                     height: 50.h,
                     width: 350.w,
-                    icon: Icons.arrow_forward_ios_outlined,
+                    icon: !isSelfie
+                        ? Icon(
+                            Icons.arrow_forward_ios_outlined,
+                          )
+                        : Container(
+                            height: 30.h,
+                            width: 30.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: AppColor.whiteColor),
+                            child: Center(
+                              child: Icon(
+                                Icons.done,
+                                color: AppColor.greenColor,
+                              ),
+                            ),
+                          ),
                     image: "assets/images/camera_mask.png",
                   ),
                   SizedBox(
                     height: 20.h,
                   ),
-                  CustomButton(
-                    onPress: () => Get.toNamed(AppRoutes.CHAT_SIGNUP),
-
-                    // controller.nextPage(
-                    // duration: const Duration(seconds: 1),
-                    // curve: Curves.easeInOut),
+                  CustomButtonWithCustomIcons(
+                    onPress: () => {controller.jumpToPage(6)},
                     text: "Add a photo ID",
                     height: 50.h,
                     width: 350.w,
-                    icon: Icons.arrow_forward_ios_outlined,
+                    icon: !isDocument
+                        ? Icon(
+                            Icons.arrow_forward_ios_outlined,
+                          )
+                        : Container(
+                            height: 30.h,
+                            width: 30.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: AppColor.whiteColor),
+                            child: Center(
+                              child: Icon(
+                                Icons.done,
+                                color: AppColor.greenColor,
+                              ),
+                            ),
+                          ),
                     image: "assets/images/nid.png",
                   ),
                   Padding(
@@ -508,8 +757,12 @@ class _SignupState extends State<Signup> {
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: CustomButton(
-                        isActive: false,
-                        onPress: () {},
+                        isActive: isSelfie == true && isDocument == true
+                            ? true
+                            : false,
+                        onPress: () {
+                          controller.jumpToPage(8);
+                        },
                         text: "Continue",
                         height: 50.h,
                       ),
@@ -572,9 +825,12 @@ class _SignupState extends State<Signup> {
                           color: AppColor.greenColor,
                           borderRadius: BorderRadius.circular(15)),
                       child: MaterialButton(
-                        onPressed: () => controller.nextPage(
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.easeInOut),
+                        onPressed: () => {
+                          openCamera("Camera", "selfie"),
+                          controller.nextPage(
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.easeInOut)
+                        },
                         child: Text("Open the camera",
                             style: AppFonts.buttonColor),
                       ),
@@ -616,8 +872,20 @@ class _SignupState extends State<Signup> {
                             ))),
                   ),
                   Container(
-                    height: 300.h,
-                  ),
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      width: 300.w,
+                      height: 300.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12)),
+                      child: selectedCameraImage != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.file(
+                                selectedCameraImage!,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Text("")),
                   Container(
                       margin: EdgeInsets.only(left: 30.w, top: 10.h),
                       child: const Column(
@@ -653,9 +921,12 @@ class _SignupState extends State<Signup> {
                           color: AppColor.greenColor,
                           borderRadius: BorderRadius.circular(15)),
                       child: MaterialButton(
-                        onPressed: () => controller.nextPage(
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.easeInOut),
+                        onPressed: () => {
+                          openCamera("Camera", "selfie")
+                          // controller.nextPage(
+                          // duration: const Duration(seconds: 1),
+                          // curve: Curves.easeInOut)
+                        },
                         child: Text("Retake", style: AppFonts.buttonColor),
                       ),
                     ),
@@ -683,9 +954,7 @@ class _SignupState extends State<Signup> {
                             color: AppColor.greenColor,
                             borderRadius: BorderRadius.circular(15)),
                         child: MaterialButton(
-                            onPressed: () => controller.previousPage(
-                                duration: const Duration(seconds: 1),
-                                curve: Curves.easeInOut),
+                            onPressed: () => controller.jumpToPage(3),
                             child: Text("Back", style: AppFonts.buttonColor))),
                   ),
                   Container(
@@ -722,9 +991,36 @@ class _SignupState extends State<Signup> {
                                 child: Text("Document type:",
                                     style: AppFonts.heading4),
                               ),
-                              const RadioWidget(text: "ID Card"),
-                              const RadioWidget(text: "Passport"),
-                              const RadioWidget(text: "Driving Licence"),
+                              RadioWidget(
+                                text: "ID Card",
+                                index: 0,
+                                active: selectedDocumentType,
+                                onTap: (v) {
+                                  setState(() {
+                                    selectedDocumentType = 0;
+                                  });
+                                },
+                              ),
+                              RadioWidget(
+                                text: "Passport",
+                                index: 1,
+                                active: selectedDocumentType,
+                                onTap: (v) {
+                                  setState(() {
+                                    selectedDocumentType = 1;
+                                  });
+                                },
+                              ),
+                              RadioWidget(
+                                text: "Driving Licence",
+                                index: 2,
+                                active: selectedDocumentType,
+                                onTap: (v) {
+                                  setState(() {
+                                    selectedDocumentType = v;
+                                  });
+                                },
+                              ),
                             ]),
                       ),
                     ),
@@ -760,9 +1056,12 @@ class _SignupState extends State<Signup> {
                           color: AppColor.greenColor,
                           borderRadius: BorderRadius.circular(15)),
                       child: MaterialButton(
-                        onPressed: () => controller.nextPage(
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.easeInOut),
+                        onPressed: () => {
+                          openCamera("Camera", "id"),
+                          controller.nextPage(
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.easeInOut)
+                        },
                         child: Text("Open Camera", style: AppFonts.buttonColor),
                       ),
                     ),
@@ -801,11 +1100,17 @@ class _SignupState extends State<Signup> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25)),
                       child: ClipRRect(
-                          borderRadius: BorderRadius.circular(25),
-                          child: Image.asset(
-                            "assets/images/Group 55.png",
-                            fit: BoxFit.cover,
-                          ))),
+                        borderRadius: BorderRadius.circular(25),
+                        child: selectedCameraImageDocs != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.file(
+                                  selectedCameraImageDocs!,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Text(""),
+                      )),
                   Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
@@ -824,8 +1129,9 @@ class _SignupState extends State<Signup> {
                           color: AppColor.greenColor,
                           borderRadius: BorderRadius.circular(15)),
                       child: MaterialButton(
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.HOMEpAGE);
+                        onPressed: () => {
+                          openCamera("Gallery", 'id'),
+                          controller.jumpToPage(1)
                         },
                         child:
                             Text("Upload a photo", style: AppFonts.buttonColor),
@@ -835,9 +1141,188 @@ class _SignupState extends State<Signup> {
                 ],
               ),
             ),
+
+            //  THIS IS THE FINISHING WIDGET
+
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Finishing ...", style: AppFonts.heading3),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Text("Syncing credentials ...", style: AppFonts.defaultFonts),
+                  SizedBox(
+                    height: 200.h,
+                  ),
+                  Center(
+                    child: Image.asset(AppImages.LOADING_ICON),
+                  ),
+                  SizedBox(
+                    height: 150.h,
+                  ),
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CustomButton(
+                          onPress: () => {
+                                register().then((value) {
+                                  if (value == true)
+                                    Get.toNamed(AppRoutes.HOMEpAGE);
+                                })
+                              },
+                          text: "Finish"))
+                ],
+              ),
+            )
           ],
         ),
       ),
     );
   }
+
+  signUpFields(name, controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.0.w, vertical: 5.h),
+          child: Text(
+            "$name",
+            style: AppFonts.defaultFonts,
+          ),
+        ),
+        Container(
+            margin: EdgeInsets.symmetric(horizontal: 12.w),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                // color: AppColor.greenColor,
+                border: Border.all(color: AppColor.greenColor)),
+            child: TextField(
+                controller: controller,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                ))),
+      ],
+    );
+  }
+
+  Future<void> openCamera(method, type) async {
+    final ImagePicker picker = ImagePicker();
+    var source;
+    method == "Camera"
+        ? source = ImageSource.camera
+        : source = ImageSource.gallery;
+
+    final XFile? image = await picker.pickImage(source: source);
+
+    File cameraImage = File(image!.path);
+
+    // final image_ = FirebaseVisionImage.fromFile(cameraImage);
+    // final faceDetector = FirebaseVision.instance.faceDetector();
+
+    // List<Face> face = await faceDetector.processImage(image_);
+
+    setState(() {
+      type == "selfie"
+          ? selectedCameraImage = cameraImage
+          : selectedCameraImageDocs = cameraImage;
+
+      type == "selfie" ? isSelfie = true : isDocument = true;
+    });
+
+    // if (type == "selfie") getFaceDetection(cameraImage);
+  }
+
+/*
+  getFaceDetection(File faceImage) async {
+    final faceDetector = GoogleMlKit.vision.faceDetector(FaceDetectorOptions(
+        enableClassification: true,
+        enableLandmarks: true,
+        enableContours: true,
+        enableTracking: true));
+
+    final InputImage inputImage = InputImage.fromFilePath(faceImage.path);
+    final List<Face> faces = await faceDetector.processImage(inputImage);
+
+    double? smileprop = 0.0;
+
+    for (Face face in faces) {
+      setState(() {
+        isFaceDetectorChecking =
+            face.leftEyeOpenProbability != face.rightEyeOpenProbability;
+      });
+      // if (face.smilingProbability != null) {
+      // smileprop = face.smilingProbability;
+
+      // if (smileprop != null && smileprop < 0.45) {}
+      // }
+    }
+  }*/  
+
+  Future<bool> register() async {
+    setState(() {
+      // _isloading = true;
+    });
+
+    final isSignup = await AuthController.registerWithEmailAndPassword(
+      firstName: firstName.text,
+      lastName: lastName.text,
+      email: email,
+      phoneNumber: phoneNumber.text,
+      dateOfBirth: dateOfBirth.text,
+      password: password,
+    );
+
+    if (isSignup!) {
+      await HelperFunction.saveUserEmail(email);
+      await HelperFunction.saveUserName(firstName.text + "_" + lastName.text);
+      await HelperFunction.saveUserLoggInState(true);
+      // navigate to home screen
+      // nextScreen(context, ChatGroupHome());
+      showSnackMessage(context, Colors.green, "signup successful");
+
+      return true;
+    } else {
+      showSnackMessage(context, Colors.red, "signup error");
+      setState(() {
+        // _isloading = false;
+      });
+      return false;
+    }
+  }
 }
+
+/*
+class FacePainter extends CustomPainter {
+  final ui.Image image;
+  final List<Face> faces;
+  final List<Rect> rects = [];
+
+  FacePainter(this.image, this.faces) {
+    for (int i = 0; i < faces.length; i++) {
+      rects.add(faces[i].boundingBox);
+    }
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 10.0
+      ..color = Colors.green;
+
+    canvas.drawImage(image, Offset.zero, Paint());
+
+    for (var i = 0; i < faces.length; i++) {
+      canvas.drawRect(rects[i], paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    throw UnimplementedError();
+  }
+}*/

@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import 'package:njadia/chat/pages/auth/grouphome.dart';
-import 'package:njadia/chat/pages/auth/login.dart';
-import 'package:njadia/chat/pages/auth/signup.dart';
+import '../../../../chat/pages/auth/grouphome.dart';
+import '../../../../chat/pages/auth/login.dart';
+import '../../../../chat/pages/auth/signup.dart';
 import 'package:njadia/src/features/add%20_people/presentation/view/add_people.dart';
+import 'package:njadia/src/features/authentication/screens/login/view/login.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/create_group.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/group_category.dart';
 import 'package:njadia/src/features/group_home_page/presentation/view/group_home_page.dart';
@@ -16,12 +17,13 @@ import 'package:njadia/src/features/group_chat/presentation/view/add_group_conta
 import 'package:njadia/src/features/group_chat/presentation/view/group_template_option.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/join_group.dart';
 import '../features/home/presentation/view/home.dart';
-import '../features/signup/views/signup.dart';
+import '../features/authentication/screens/signup/views/signup.dart';
 
 class AppRoutes {
   static const String SPLASHSCREEN      = '/';
   static const String ONBOARDING        = '/onBoarding';
   static const String SIGNUP            = '/signup';
+  static const String LOGIN            = '/login';
   static const String CHAT_SIGNUP = '/signupChat';
   static const String CHAT_LOGIN = '/loginChat';
   static const String HOMEpAGE   = '/homepage';
@@ -46,6 +48,7 @@ class AppPages {
     GetPage(name: AppRoutes.SPLASHSCREEN, page: () => const SplashScreen()),
     GetPage(name: AppRoutes.ONBOARDING, page: () => OnBoardingScreens(),binding: BindingsBuilder(() {})),
     GetPage(name: AppRoutes.SIGNUP, page: () => Signup()),
+    GetPage(name: AppRoutes.LOGIN, page: () => LoginScreen()),
     GetPage(name: AppRoutes.CHAT_SIGNUP, page: () =>const SignupChat()),
     GetPage(name: AppRoutes.CHAT_LOGIN, page: () =>const LoginChat()),
     GetPage(name: AppRoutes.HOMEpAGE, page: () =>const HomePage()),

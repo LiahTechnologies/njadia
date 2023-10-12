@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../chat/helper/helper_function.dart';
+import 'package:njadia/src/constants/style/appAsset.dart';
+import 'package:njadia/src/features/authentication/screens/authentication.dart';
 
 import 'src/routing/approutes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,13 +13,16 @@ import 'package:country_picker/country_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-Future main() async {
+/// ------- For Docs and Updates Check ------
+/// ------------------README.md--------------
 
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+// await FaceCamera.initialize();
   runApp(const MyApp());
 }
 
@@ -31,18 +37,23 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return GetMaterialApp(
-                 supportedLocales: [
-        const Locale('en'),
-        const Locale('el'),
-        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans'), // Generic Simplified Chinese 'zh_Hans'
-        const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'), // Generic traditional Chinese 'zh_Hant'
-      ],
-      localizationsDelegates: [
-        CountryLocalizations.delegate,
-        // GlobalMaterialLocalizations.delegate,
-        // GlobalWidgetsLocalizations.delegate,
-        // GlobalCupertinoLocalizations.delegate,
-      ], debugShowCheckedModeBanner: false,
+            supportedLocales: [
+              const Locale('en'),
+              const Locale('el'),
+              const Locale.fromSubtags(
+                  languageCode: 'zh',
+                  scriptCode: 'Hans'), // Generic Simplified Chinese 'zh_Hans'
+              const Locale.fromSubtags(
+                  languageCode: 'zh',
+                  scriptCode: 'Hant'), // Generic traditional Chinese 'zh_Hant'
+            ],
+            localizationsDelegates: [
+              CountryLocalizations.delegate,
+              // GlobalMaterialLocalizations.delegate,
+              // GlobalWidgetsLocalizations.delegate,
+              // GlobalCupertinoLocalizations.delegate,
+            ],
+            debugShowCheckedModeBanner: false,
             getPages: AppPages.appPagas,
             initialRoute: AppRoutes.SPLASHSCREEN,
             //
@@ -61,8 +72,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+   
     Future.delayed(const Duration(seconds: 7), () {
-      Get.offAndToNamed(AppRoutes.ONBOARDING);
+      Get.offAll(Authenentication());
     });
     super.initState();
   }
@@ -76,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Positioned(
                 top: 320.h,
                 left: 50.w,
-                child: Image.asset("assets/images/logo_final.png")),
+                child: Image.asset(AppImages.LOADING_ICON)),
             Positioned(
                 bottom: 20,
                 left: 140.w,

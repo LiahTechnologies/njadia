@@ -1,17 +1,36 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:njadia/src/features/authentication/controllers/authentication_service.dart';
+import 'package:njadia/src/features/group_chat/presentation/controller/create_group_service.dart';
 import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/utils/customInput.dart';
 import 'package:njadia/src/constants/style/appAsset.dart';
 
+import '../../../../common/helper_function.dart';
 import '../../../../utils/CustomButton.dart';
 import '../../../../constants/style/appfont.dart';
 import '../../../../constants/style/color.dart';
+import '../../../authentication/data/databaseService.dart';
+import '../widgets/groupTile.dart';
 
-class CreateGroup extends StatelessWidget {
+class CreateGroup extends StatefulWidget {
   const CreateGroup({super.key});
+
+  @override
+  State<CreateGroup> createState() => _CreateGroupState();
+}
+
+class _CreateGroupState extends State<CreateGroup> {
+  final contorller = CreateGroupService();
+  String groupName = '';
+  String groupLimit = '';
+  String groupAmount = '';
+
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +104,9 @@ class CreateGroup extends StatelessWidget {
                 ),
                 CustomInput(
                   text: "NJANGI NAME",
-                  controller: (value) {},
+                  controller: (value) {
+                    groupName = value;
+                  },
                   hint: "Ekondo Titi Njangi",
                 ),
                 Row(
@@ -93,13 +114,19 @@ class CreateGroup extends StatelessWidget {
                   children: [
                     CustomInput(
                       text: "MEMBERS LIMIT",
-                      controller: (value) {},
+                      controller: (value) {
+                        groupLimit = value;
+                      },
                       hint: "50",
                       width: 140,
                     ),
                     CustomInput(
                       text: "CONTRIBUTION AMOUNT",
-                      controller: (value) {},
+                      controller: (value) {
+                        setState(() {
+                          groupAmount = value;
+                        });
+                      },
                       hint: "25,000XAF",
                       width: 200,
                     ),
@@ -121,9 +148,15 @@ class CreateGroup extends StatelessWidget {
                 ),
                 CustomButton(
                   onPress: () {
-                    Get.toNamed(AppRoutes.ADD_USERS_LINK);
+                    print("CREATE BUTTON WAS CLICKED");
+                    contorller
+                        .createNewNjangiGroup(
+                            groupName: groupName,
+                            groupLevi: groupAmount,
+                            groupLimit: groupLimit)
+                        .then((Value) => Get.toNamed(AppRoutes.HOMEpAGE));
                   },
-                  text: "Create Njangi",
+                  text: "CreatE Njangi",
                   icon: null,
                   borderRadius: 12,
                   width: 290.w,

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,10 @@ import 'package:njadia/src/constants/style/appfont.dart';
 import 'package:njadia/src/constants/style/color.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/add_group_contact.dart';
 
+import '../../../../common/helper_function.dart';
+import '../../../authentication/data/databaseService.dart';
+import '../../../group_chat/presentation/widgets/groupTile.dart';
+
 class GroupHomePage extends StatefulWidget {
   const GroupHomePage({super.key});
 
@@ -17,6 +22,42 @@ class GroupHomePage extends StatefulWidget {
 
 class _GroupHomePageState extends State<GroupHomePage> {
   final TextEditingController searchController = TextEditingController();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -40,6 +81,7 @@ class _GroupHomePageState extends State<GroupHomePage> {
                         child: Column(
                           children: [
                             Image.asset(AppImages.DM_ICON),
+                           
                             IconButton(
                                 onPressed: () => Get.toNamed(
                                     AppRoutes.CREATE_GROUP_TEMPLATE),
@@ -78,7 +120,6 @@ class _GroupHomePageState extends State<GroupHomePage> {
                         ),
                         Container(
                           margin: EdgeInsets.only(bottom: 10.h),
-                        
                         ),
                         Image.asset(AppImages.GROUP_DEFAULT_ICON),
                         Text(
@@ -181,4 +222,60 @@ class _GroupHomePageState extends State<GroupHomePage> {
       ),
     );
   }
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
