@@ -9,10 +9,23 @@ class HelperFunction {
   static String userLogingKey = 'LOGGINKEY';
   static String userNameKey = 'USERNAMEKEY';
   static String userEmailKey = 'USEREMAILKEY';
+  static String theme = "isDarkMode";
 
   /**
    * saving to share preferences
    */
+
+  static Future<bool> writeTheme(value) async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+   return await sharedPreference.setBool(theme, value);
+  }
+
+
+   // getting data
+  static Future<bool> getTheme() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    return await sharedPreference.getBool(theme)!;
+  }
 
   static Future<bool> saveUserLoggInState(bool isLoggedIn) async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();

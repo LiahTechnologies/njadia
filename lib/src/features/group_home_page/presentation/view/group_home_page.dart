@@ -28,36 +28,6 @@ class _GroupHomePageState extends State<GroupHomePage> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(

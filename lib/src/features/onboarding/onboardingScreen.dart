@@ -52,13 +52,13 @@ class OnBoardingScreens extends StatelessWidget {
                     ),
                     Text(
                       "Welcome to Njadia",
-                      style: AppFonts.heading1,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "Empowering you to save more with \nguidiance and  security",
-                        style: AppFonts.defaultFonts,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ),
                     //  loading dots and next button
@@ -91,7 +91,7 @@ class OnBoardingScreens extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "Introduction to \nNjadia",
-                        style: AppFonts.heading1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                     Padding(
@@ -99,7 +99,7 @@ class OnBoardingScreens extends StatelessWidget {
                       child: Text(
                         "Njadia, a time-honored trandition, unites communities through a collection of saving journey. Experience the power of communal finance as we automate group saving with safety and trust",
                         textAlign: TextAlign.start,
-                        style: AppFonts.defaultFonts,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                     ),
                     LoadingDots(number: 5, index: 2),
@@ -114,7 +114,7 @@ class OnBoardingScreens extends StatelessWidget {
                 SvgPicture.asset("assets/images/amico.svg"),
                 Text(
                   "How it works",
-                  style: AppFonts.heading1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -122,7 +122,7 @@ class OnBoardingScreens extends StatelessWidget {
                   child: Text(
                     "Join or create a group, contribute regualarly.Pooled savings grow. Automated rotation. Receive payout. Trustworthy community support. safe and secure. A brighter financial future awaits action protected",
                     textAlign: TextAlign.start,
-                    style: AppFonts.defaultFonts,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ),
                 LoadingDots(number: 4, index: 3),

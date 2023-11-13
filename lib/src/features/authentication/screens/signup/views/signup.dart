@@ -10,7 +10,6 @@ import 'package:get/get.dart';
 // import 'package:google_ml_kit/google_ml_kit.dart';
 // import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../../../../../chat/services/authservice.dart';
 
 import 'package:njadia/src/utils/CustomButton.dart';
 
@@ -41,7 +40,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  final AuthService auth = AuthService();
+  // final AuthService auth = AuthService();
 
   String finalUserOTP = "";
   SignController signUpController = Get.put(SignController());
@@ -114,7 +113,7 @@ class _SignupState extends State<Signup> {
                 children: [
                   Text(
                     "Account Creation",
-                    style: AppFonts.heading1,
+                    style: Theme.of(context).textTheme.titleMedium
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 15.h, bottom: 15.h),
@@ -133,15 +132,15 @@ class _SignupState extends State<Signup> {
                     child: RichText(
                         text: TextSpan(children: [
                       TextSpan(
-                          text: "Enter your ", style: AppFonts.defaultFonts2),
+                          text: "Enter your ",style: Theme.of(context).textTheme.displayMedium),
                       TextSpan(
-                          text: "Email & Password", style: AppFonts.heading3),
-                      TextSpan(text: " Below.", style: AppFonts.defaultFonts2),
+                          text: "Email & Password", style:Theme.of(context).textTheme.displayMedium),
+                      TextSpan(text: " Below.", style: Theme.of(context).textTheme.displayMedium),
                     ])),
                   ),
                   Text(
                       "We will send  a 6 digit code to verify your phone  number",
-                      style: AppFonts.defaultFonts2),
+                      style:Theme.of(context).textTheme.displayMedium),
                   CustomInputWidget(
                       borderRadius: 12,
                       marginTop: 12,
@@ -303,6 +302,7 @@ class _SignupState extends State<Signup> {
              * VERIFY OTP CODE
              */
 
+          /*
             Container(
               margin: EdgeInsets.only(
                   top: 12.h, left: 12.w, right: 12.w, bottom: 7.h),
@@ -460,6 +460,9 @@ class _SignupState extends State<Signup> {
               ),
             ),
 
+              */
+
+
             /**
              * THIS IS THE THIRD PART
              */
@@ -472,7 +475,7 @@ class _SignupState extends State<Signup> {
                 children: [
                   Text(
                     "Account Creation",
-                    style: AppFonts.heading1,
+                    style: Theme.of(context).textTheme.titleMedium
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 15.h, bottom: 15.h),
@@ -492,7 +495,7 @@ class _SignupState extends State<Signup> {
                         text: TextSpan(children: [
                       TextSpan(
                           text: "Now lets get to know more about you!",
-                          style: AppFonts.defaultFonts2),
+                          style: Theme.of(context).textTheme.displayMedium),
                     ])),
                   ),
                   Container(
@@ -517,10 +520,26 @@ class _SignupState extends State<Signup> {
                           child: Image.asset("assets/images/upload.png"))
                     ]),
                   ),
-                  SignUpDetails(
-                    firstNamecontroller: firstName,
-                    lastNamecontroller: lastName,
-                  ),
+                  // SignUpDetails(
+                  //   firstNamecontroller: firstName,
+                  //   lastNamecontroller: lastName,
+                  // ),
+
+                 CustomInputWidget(
+                      borderRadius: 12,
+                      marginTop: 12,
+                      text: "First Name",
+                      onChange: (v) {
+                        firstName.text = v;
+                      }),
+
+                 CustomInputWidget(
+                      borderRadius: 12,
+                      marginTop: 12,
+                      text: "Last Name",
+                      onChange: (v) {
+                        lastName.text = v;
+                      }),
                   Container(
                     width: 350.w,
                     child: Row(
@@ -528,7 +547,7 @@ class _SignupState extends State<Signup> {
                       children: [
                         Text(
                           "Date Of Birth",
-                          style: AppFonts.defaultFonts,
+                          style: Theme.of(context).textTheme.displayMedium
                         ),
                         SizedBox(
                           width: 130.w,
@@ -558,7 +577,7 @@ class _SignupState extends State<Signup> {
                     children: [
                       Text(
                         "Phone Number",
-                        style: AppFonts.defaultFonts,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 5.h),
@@ -628,19 +647,19 @@ class _SignupState extends State<Signup> {
                           }),
                       Text(
                         "I agree to the",
-                        style: AppFonts.defaultFonts3,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                       Text(
                         " Terms of service",
-                        style: AppFonts.defaultFontsBold3,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                       Text(
                         " and",
-                        style: AppFonts.defaultFonts3,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                       Text(
                         " Privacy Policy",
-                        style: AppFonts.defaultFontsBold3,
+                        style: Theme.of(context).textTheme.displayMedium
                       ),
                     ],
                   ),
@@ -672,7 +691,7 @@ class _SignupState extends State<Signup> {
                 children: [
                   Text(
                     "Verify your identity",
-                    style: AppFonts.heading1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 15.h, bottom: 15.h),
@@ -693,7 +712,7 @@ class _SignupState extends State<Signup> {
                       TextSpan(
                           text:
                               "Please match you face with a supported \ndocument in order to be part of Njaida group",
-                          style: AppFonts.defaultFonts2),
+                          style: Theme.of(context).textTheme.displayMedium),
                     ])),
                   ),
                   SizedBox(

@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../../chat/pages/auth/grouphome.dart';
-import '../../../../../../../chat/services/authservice.dart';
+
 import 'package:njadia/src/constants/style/color.dart';
 
 import '../../../../common/helper_function.dart';
@@ -46,7 +45,7 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
-  final authService = AuthService();
+  //final authService = AuthService();
   final TextEditingController messageController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,7 @@ class _ChatPageState extends State<ChatPage> {
                         return AlertDialog(
                           title: Text("Exit"),
                           content:
-                              Text("Are you sure you wanat to exit this group"),
+                              Text("Are you sure you want to exit this group"),
                           actions: [
                             IconButton(
                                 onPressed: () {
@@ -85,7 +84,7 @@ class _ChatPageState extends State<ChatPage> {
                                           userName: widget.userName,
                                           groupName: widget.groupName)
                                       .whenComplete(() {
-                                    nextScreen(context, ChatGroupHome());
+                                    // nextScreen(context, ChatGroupHome());
                                   });
                                 },
                                 icon: Icon(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../../../../../chat/services/authservice.dart';
 import 'package:njadia/src/features/authentication/controllers/authentication_service.dart';
 import 'package:njadia/src/features/authentication/screens/authentication.dart';
 import 'package:njadia/src/routing/approutes.dart';

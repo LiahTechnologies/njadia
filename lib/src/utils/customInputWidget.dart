@@ -33,7 +33,7 @@ class CustomInputWidget extends StatelessWidget {
         children: [
           Text(
             text,
-            style: AppFonts.defaultFonts,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
           Container(
               margin: EdgeInsets.only(
@@ -45,7 +45,7 @@ class CustomInputWidget extends StatelessWidget {
               width: width.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(borderRadius),
-                  border: Border.all(color: AppColor.greenColor)),
+                  border: Border.all(color: AppColor.blackColor)),
               child: TextField(
                 onChanged: (v) => onChange(v),
                 decoration: const InputDecoration(border: InputBorder.none),

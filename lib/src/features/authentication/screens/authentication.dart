@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../../chat/helper/helper_function.dart';
+// import '../../../../../../chat/helper/helper_function.dart';
 import 'package:njadia/src/features/authentication/screens/login/view/login.dart';
 import 'package:njadia/src/features/onboarding/onboardingScreen.dart';
 import 'package:njadia/src/routing/approutes.dart';
+
+import '../../../common/helper_function.dart';
 
 class Authenentication extends StatelessWidget {
   const Authenentication({super.key});

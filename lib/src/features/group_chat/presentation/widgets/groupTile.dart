@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:njadia/src/constants/style/color.dart';
 
 import '../../../../common/helper_function.dart';
 import '../view/chatpage.dart';
@@ -27,13 +28,16 @@ class _GroupTileState extends State<GroupTile> {
             userName: widget.userName!));
       },
       child: Container(
-        height: 45.h,
+        height: 55.h,
+        width: 500.w,
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: Colors.pinkAccent.withOpacity(0.09),
         ),
-        child: CircleAvatar(
+        child:ListTile(
+        leading:
+         CircleAvatar(
           radius: 35,
           backgroundColor: Colors.pinkAccent,
           child: Text(
@@ -44,11 +48,23 @@ class _GroupTileState extends State<GroupTile> {
           ),
         ),
 
-        // title: Text(
-        // widget.groupName,
-        // style: TextStyle(fontWeight: FontWeight.bold),
-        // ),
-        // subtitle: Text(widget.userName),
+        title: Text(
+        widget.groupName,
+        style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(widget.userName!),
+        trailing: Container(
+          
+          height: 30.h,
+          width: 30.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: AppColor.greenColor
+          ),
+          child: Center(child: Text("22",style: TextStyle(color: AppColor.whiteColor),)),
+        )
+        
+      )
       ),
     );
   }

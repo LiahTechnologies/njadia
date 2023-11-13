@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../../chat/helper/helper_function.dart';
 import 'package:njadia/src/constants/style/appAsset.dart';
 import 'package:njadia/src/features/authentication/screens/authentication.dart';
+import 'package:njadia/src/utils/theme/themes.dart';
 
 import 'src/routing/approutes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,12 +23,13 @@ Future main() async {
   );
 
 // await FaceCamera.initialize();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
 
+  final themeController = Get.put(());
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -37,6 +38,12 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return GetMaterialApp(
+            // themeMode: themeController.theme,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+
+          
+
             supportedLocales: [
               const Locale('en'),
               const Locale('el'),
@@ -72,7 +79,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-   
     Future.delayed(const Duration(seconds: 7), () {
       Get.offAll(Authenentication());
     });
