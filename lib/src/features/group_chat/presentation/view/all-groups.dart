@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../common/helper_function.dart';
+import '../../../../constants/style/color.dart';
+import '../../../../routing/approutes.dart';
 import '../../../authentication/data/databaseService.dart';
 import '../widgets/groupTile.dart';
 
@@ -60,9 +63,26 @@ class _AllGroupsState extends State<AllGroups> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: grouplist(),
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+          automaticallyImplyLeading: false,
+          title: Text("Njangi Groups"),
+          centerTitle: true,
+        ),
+      body: Container(
+        width: double.infinity,
+        child: grouplist(),
+      ),
+
+       floatingActionButton: FloatingActionButton(
+          onPressed: () => Get.toNamed(AppRoutes.CREATE_GROUP_TEMPLATE),
+          child: const Icon(
+            Icons.add,
+            color: AppColor.whiteColor,
+          ),
+          backgroundColor: AppColor.greenColor,
+        ),
     );
   }
 

@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
       this.width = 0,
       this.isActive = true,
       this.borderRadius = 12,
-      this.textColor = AppColor.whiteColor,
+      this.textColor = true,
       this.iconColor = AppColor.whiteColor,
       this.containerColor = AppColor.greenColor,
       this.borderColor = AppColor.greenColor});
@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
   final IconData? icon;
   final String? image;
   final bool? isActive;
-  final Color textColor;
+  final bool textColor;
   final Color iconColor;
   final Color containerColor;
   final Color? borderColor;
@@ -48,7 +48,7 @@ class CustomButton extends StatelessWidget {
           Center(
             child: Text(
               text,
-              style: AppFonts.buttonColor.copyWith(color: textColor),
+              style:Theme.of(context).textTheme.displayMedium!.copyWith(color:textColor? Theme.of(context).textTheme.displayLarge!.color:AppColor.whiteColor,  )
             ),
           ),
           if (icon != null)
@@ -56,7 +56,8 @@ class CustomButton extends StatelessWidget {
               padding: EdgeInsets.only(left: 18.0),
               child: Icon(
                 icon,
-                color: iconColor,
+                color: Theme.of(context).iconTheme.color,
+                size: 14,
               ),
             )
         ]),

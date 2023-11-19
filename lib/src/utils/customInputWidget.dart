@@ -45,8 +45,9 @@ class CustomInputWidget extends StatelessWidget {
               width: width.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(borderRadius),
-                  border: Border.all(color: AppColor.blackColor)),
+                  border: Border.all(color: Theme.of(context).inputDecorationTheme.iconColor!)),
               child: TextField(
+                style: Theme.of(context).textTheme.displaySmall,
                 onChanged: (v) => onChange(v),
                 decoration: const InputDecoration(border: InputBorder.none),
               )),

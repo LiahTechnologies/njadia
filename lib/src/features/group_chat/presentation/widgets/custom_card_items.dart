@@ -20,10 +20,11 @@ class CustomCardItems extends StatelessWidget {
         child: ListTile(
           leading: Image.asset(
             image,
-            width: 30,
+            width: 20,
+            color: Theme.of(context).iconTheme.color,
           ),
-          title: Text(text),
-          trailing: const Icon(Icons.arrow_forward_ios_outlined),
+          title: Text(text,style: Theme.of(context).textTheme.displayMedium,),
+          trailing:  Icon(Icons.arrow_forward_ios_outlined,size: 11,color: Theme.of(context).iconTheme.color,),
         ),
       )),
     );

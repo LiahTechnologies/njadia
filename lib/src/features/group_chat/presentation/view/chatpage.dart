@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:njadia/src/constants/style/color.dart';
 
@@ -25,6 +26,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   Stream<QuerySnapshot>? chat;
   String admin = '';
+  
   @override
   void initState() {
     getChatandAdmin();
@@ -51,11 +53,27 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              size: 11,
+            ),
+            onPressed: () => Get.back(),
+          ),
           centerTitle: true,
           elevation: 0,
-          title: Text(widget.groupName),
+          title: Text(widget.groupName,style: Theme.of(context).textTheme.titleLarge,),
           backgroundColor: AppColor.greenColor,
           actions: [
+            PopupMenuButton(itemBuilder: (context) {
+              return [
+               
+              ];
+            }),
+
+
+
+            /*
             IconButton(
                 onPressed: () {
                   showDialog(
@@ -66,6 +84,9 @@ class _ChatPageState extends State<ChatPage> {
                           content:
                               Text("Are you sure you want to exit this group"),
                           actions: [
+
+                             
+                              /*
                             IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -90,6 +111,8 @@ class _ChatPageState extends State<ChatPage> {
                                 icon: Icon(
                                   Icons.info,
                                 ))
+
+                                */
                           ],
                         );
                       });
@@ -101,6 +124,11 @@ class _ChatPageState extends State<ChatPage> {
                   // groupName: widget.groupName));
                 },
                 icon: const Icon(Icons.info)),
+
+
+                */
+
+
           ],
         ),
         body: Stack(children: [

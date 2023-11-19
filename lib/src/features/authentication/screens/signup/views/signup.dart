@@ -499,7 +499,7 @@ class _SignupState extends State<Signup> {
                     ])),
                   ),
                   Container(
-                    height: 150.h,
+                    height: 100.h,
                     width: double.infinity,
                     child: Stack(children: [
                       Positioned(
@@ -514,10 +514,10 @@ class _SignupState extends State<Signup> {
                           ),
                         ),
                       ),
-                      Positioned(
-                          top: 90.h,
-                          left: 60.w,
-                          child: Image.asset("assets/images/upload.png"))
+                      // Positioned(
+                      //     top: 90.h,
+                      //     left: 60.w,
+                      //     child: Image.asset("assets/images/upload.png"))
                     ]),
                   ),
                   // SignUpDetails(
@@ -628,6 +628,7 @@ class _SignupState extends State<Signup> {
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     hintText: "phone number",
+                                    hintStyle: Theme.of(context).textTheme.displayMedium,
                                     border: InputBorder.none),
                               ),
                             ),

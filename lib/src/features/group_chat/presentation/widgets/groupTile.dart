@@ -28,17 +28,15 @@ class _GroupTileState extends State<GroupTile> {
             userName: widget.userName!));
       },
       child: Container(
-        height: 55.h,
+        height: 50.h,
         width: 500.w,
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: Colors.pinkAccent.withOpacity(0.09),
-        ),
+          // padding: const EdgeInsets.only(bottom: 16),
+
         child:ListTile(
         leading:
          CircleAvatar(
-          radius: 35,
+          radius: 20,
           backgroundColor: Colors.pinkAccent,
           child: Text(
             widget.groupName.substring(0, 1).toUpperCase(),
@@ -47,16 +45,16 @@ class _GroupTileState extends State<GroupTile> {
                 color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
-
+        
         title: Text(
         widget.groupName,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: Theme.of(context).textTheme.displayLarge,
         ),
-        subtitle: Text(widget.userName!),
+        subtitle: Text(widget.userName!,style: Theme.of(context).textTheme.displaySmall,),
         trailing: Container(
           
-          height: 30.h,
-          width: 30.w,
+          height: 20.h,
+          width: 20.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: AppColor.greenColor
@@ -64,7 +62,7 @@ class _GroupTileState extends State<GroupTile> {
           child: Center(child: Text("22",style: TextStyle(color: AppColor.whiteColor),)),
         )
         
-      )
+            )
       ),
     );
   }

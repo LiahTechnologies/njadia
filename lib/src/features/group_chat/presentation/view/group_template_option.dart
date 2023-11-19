@@ -20,17 +20,24 @@ class GroupTemplateOption extends StatelessWidget {
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+             SizedBox(
+              height: 6.h,
+            ),
             Text(
               "Create Your Njadia Group",
-              style: AppFonts.heading1,
+              style: Theme.of(context).textTheme.titleMedium
+            ),
+
+             SizedBox(
+              height: 10.h,
             ),
             Text(
               "Begin your collective saving journey. Experience the power",
-              style: AppFonts.defaultFonts3,
+              style: Theme.of(context).textTheme.displayMedium
             ),
             Text(
               "of communal finance",
-              style: AppFonts.defaultFonts3,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
 
             SizedBox(height: 10.h),
@@ -47,7 +54,7 @@ class GroupTemplateOption extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 4.0),
                   child: Text("START FROM A TEMPLATE",
-                      style: AppFonts.defaultFontsBold3),
+                      style: Theme.of(context).textTheme.displayMedium),
                 )),
             SizedBox(height: 10.h),
 
@@ -83,7 +90,7 @@ class GroupTemplateOption extends StatelessWidget {
             SizedBox(height: 30.h),
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text("Have an invitation?", style: AppFonts.heading3),
+              child: Text("Have an invitation?", style: Theme.of(context).textTheme.displayMedium),
             ),
 
             CustomButton(

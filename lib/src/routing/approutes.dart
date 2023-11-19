@@ -16,7 +16,7 @@ import 'package:njadia/main.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/add_group_contact.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/group_template_option.dart';
 import 'package:njadia/src/features/group_chat/presentation/view/join_group.dart';
-import 'package:njadia/src/features/profile/profile.dart';
+import 'package:njadia/src/features/profile/presentation/views/profile.dart';
 import '../features/home/presentation/view/home.dart';
 import '../features/authentication/screens/signup/views/signup.dart';
 

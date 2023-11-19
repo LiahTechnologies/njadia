@@ -6,8 +6,9 @@ import 'package:njadia/src/constants/style/appfont.dart';
 import 'package:njadia/src/constants/style/color.dart';
 
 class CustomNotification extends StatelessWidget {
-  const CustomNotification({super.key});
-
+  const CustomNotification({super.key, this.firstButton="Return"});
+  final bool showHiddenButton = false;
+  final String firstButton;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,8 +23,23 @@ class CustomNotification extends StatelessWidget {
           ),
         ),
       ),
-      Center(
-        child: CustomButton(
+
+      Row(
+        
+        children: [
+        CustomButton(
+            borderColor: AppColor.greenColor,
+            containerColor: AppColor.whiteColor,
+            // textColor: AppColor.greenColor,
+            width: 90,
+            height: 50,
+            icon: null,
+            onPress: () {
+              Get.back();
+            },
+            text: firstButton),
+      if (showHiddenButton)
+        CustomButton(
             borderColor: AppColor.greenColor,
             containerColor: AppColor.whiteColor,
             // textColor: AppColor.greenColor,
@@ -34,7 +50,21 @@ class CustomNotification extends StatelessWidget {
               Get.back();
             },
             text: "Return"),
-      )
+
+      if (showHiddenButton)
+      CustomButton(
+          borderColor: AppColor.greenColor,
+          containerColor: AppColor.whiteColor,
+          // textColor: AppColor.greenColor,
+          width: 90,
+          height: 50,
+          icon: null,
+          onPress: () {
+            Get.back();
+          },
+          text: "Return")
+      ],)
+      
     ]));
   }
 }

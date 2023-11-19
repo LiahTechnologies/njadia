@@ -17,35 +17,48 @@ class GroupCategory extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 TextButton.icon(
                     onPressed: () => Get.back(),
-                    icon: const Icon(
+                    icon:  Icon(
                       Icons.arrow_back_ios,
-                      color: AppColor.greenColor,
+                      size: 11,
+                      color: Theme.of(context).iconTheme.color,
                     ),
                     label: Text(
                       "Back",
-                      style: AppFonts.defaultFonts,
+                      style: Theme.of(context).textTheme.displayMedium
                     )),
               ],
             ),
-            Text(
-              "Tell us more about your Njangi Group",
-              style: AppFonts.heading3,
+            Padding(
+               padding:  EdgeInsets.only(left:6.0.w),
+              child: Text(
+                "Tell us more about your Njangi Group In order to help you",
+                textAlign: TextAlign.start,
+                style: Theme.of(context).textTheme.displayMedium
+              ),
             ),
             SizedBox(
               height: 5.h,
             ),
-            Text(
-              "In order to help you with the setup, is your new ngangi group",
-              style: AppFonts.defaultFonts3,
+            Padding(
+              padding:  EdgeInsets.only(left:6.0.w),
+              child: Text(
+                "with the setup, is your new ngangi group just for a few friends ",
+                textAlign: TextAlign.start,
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
             ),
-            Text(
-              "just for a few friends or a large community",
-              style: AppFonts.defaultFonts3,
+            Padding(
+               padding:  EdgeInsets.only(left:6.0.w),
+              child: Text(
+                "or a large community",
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
             ),
             SizedBox(
               height: 25.h,
@@ -63,12 +76,15 @@ class GroupCategory extends StatelessWidget {
             SizedBox(
               height: 25.h,
             ),
-            Text.rich(TextSpan(children: [
-              TextSpan(text: "Not sure? ", style: AppFonts.defaultFonts),
-              TextSpan(text: "You can ", style: AppFonts.defaultFonts),
-              TextSpan(text: "skip this question ", style: AppFonts.heading3),
-              TextSpan(text: "Not sure? ", style: AppFonts.defaultFonts)
-            ]))
+            Padding(
+              padding:  EdgeInsets.only(left:8.0.w),
+              child: Text.rich(TextSpan(children: [
+                TextSpan(text: "Not sure? ", style: Theme.of(context).textTheme.displayMedium),
+                TextSpan(text: "You can ", style: Theme.of(context).textTheme.displayMedium),
+                TextSpan(text: "skip this question ", style: Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14)),
+                TextSpan(text: "Not sure? ", style: Theme.of(context).textTheme.displayMedium)
+              ])),
+            )
           ],
         ),
       ),

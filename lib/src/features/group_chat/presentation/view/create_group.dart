@@ -40,6 +40,7 @@ class _CreateGroupState extends State<CreateGroup> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
                   alignment: Alignment.topLeft,
@@ -49,55 +50,61 @@ class _CreateGroupState extends State<CreateGroup> {
                       },
                       icon: Icon(
                         Icons.arrow_back_ios,
-                        color: AppColor.greenColor,
+                        size: 11,
+                        color: Theme.of(context).iconTheme.color
                       ),
                       label: Text(
                         "Back",
-                        style: AppFonts.defaultFonts,
+                        style: Theme.of(context).textTheme.displayMedium,
                       )),
                 ),
-                Text("Create your Njangi group", style: AppFonts.heading2),
+                Center(child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Create your Njangi group", style: Theme.of(context).textTheme.titleMedium),
+                )),
                 Text(
                   "Begin your collective saving journey, hangout and and",
-                  style: AppFonts.defaultFonts,
+                  style: Theme.of(context).textTheme.displayMedium
                 ),
                 Text(
                   "experience the power of communal finance",
-                  style: AppFonts.defaultFonts,
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
                 SizedBox(
                   height: 20.h,
                 ),
-                Container(
-                  width: 140.w,
-                  margin: EdgeInsets.symmetric(horizontal: 30.w),
-                  child: Stack(children: [
-                    DottedBorder(
-                        strokeWidth: 2,
-                        borderType: BorderType.Circle,
-                        radius: Radius.circular(70),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: CircleAvatar(
-                              radius: 50.w,
-                              backgroundImage: AssetImage(AppImages.PERSON),
-                            ))),
-                    Positioned(
-                        right: 25.w,
-                        top: 3.h,
-                        child: Container(
-                          width: 35.w,
-                          height: 35.h,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: Colors.black),
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 25.w,
-                          ),
-                        ))
-                  ]),
+                Center(
+                  child: Container(
+                    width: 140.w,
+                    margin: EdgeInsets.symmetric(horizontal: 30.w),
+                    child: Stack(children: [
+                      DottedBorder(
+                          strokeWidth: 2,
+                          borderType: BorderType.Circle,
+                          radius: Radius.circular(70),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: CircleAvatar(
+                                radius: 50.w,
+                                backgroundImage: AssetImage(AppImages.PERSON),
+                              ))),
+                      Positioned(
+                          right: 25.w,
+                          top: 3.h,
+                          child: Container(
+                            width: 35.w,
+                            height: 35.h,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: Colors.black),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 25.w,
+                            ),
+                          ))
+                    ]),
+                  ),
                 ),
                 SizedBox(
                   height: 20.h,
@@ -138,28 +145,30 @@ class _CreateGroupState extends State<CreateGroup> {
                 Text.rich(TextSpan(children: [
                   TextSpan(
                       text: "By creating a server, you agree to Njadia's",
-                      style: AppFonts.defaultFonts3.copyWith(fontSize: 11)),
+                      style: Theme.of(context).textTheme.displayMedium),
                   TextSpan(
                       text: " community guidelines",
-                      style: AppFonts.defaultFontsBold3),
+                      style: Theme.of(context).textTheme.displayMedium),
                 ])),
                 SizedBox(
                   height: 10.h,
                 ),
-                CustomButton(
-                  onPress: () {
-                    print("CREATE BUTTON WAS CLICKED");
-                    contorller
-                        .createNewNjangiGroup(
-                            groupName: groupName,
-                            groupLevi: groupAmount,
-                            groupLimit: groupLimit)
-                        .then((Value) => Get.toNamed(AppRoutes.HOMEpAGE));
-                  },
-                  text: "CreatE Njangi",
-                  icon: null,
-                  borderRadius: 12,
-                  width: 290.w,
+                Center(
+                  child: CustomButton(
+                    onPress: () {
+                      print("CREATE BUTTON WAS CLICKED");
+                      contorller
+                          .createNewNjangiGroup(
+                              groupName: groupName,
+                              groupLevi: groupAmount,
+                              groupLimit: groupLimit)
+                          .then((Value) => Get.toNamed(AppRoutes.HOMEpAGE));
+                    },
+                    text: "CreatE Njangi",
+                    icon: null,
+                    borderRadius: 12,
+                    width: 290.w,
+                  ),
                 )
               ],
             ),

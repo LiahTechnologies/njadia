@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Login to Account",
-                    style: AppFonts.heading1,
+                    style: Theme.of(context).textTheme.titleMedium
                   ),
 
                   // Container(
@@ -54,16 +54,16 @@ class LoginScreen extends StatelessWidget {
                     child: RichText(
                         text: TextSpan(children: [
                       TextSpan(
-                          text: "Enter your ", style: AppFonts.defaultFonts2),
+                          text: "Enter your ", style: Theme.of(context).textTheme.displayMedium),
                       TextSpan(
-                          text: "Email & Password", style: AppFonts.heading3),
-                      TextSpan(text: " Below.", style: AppFonts.defaultFonts2),
+                          text: "Email & Password", style:Theme.of(context).textTheme.displayMedium),
+                      TextSpan(text: " Below.", style: Theme.of(context).textTheme.displayMedium),
                     ])),
                   ),
 
                   Text(
                       "We will send  a 6 digit code to verify your phone  number",
-                      style: AppFonts.defaultFonts2),
+                      style: Theme.of(context).textTheme.displayMedium),
                   CustomInputWidget(
                       borderRadius: 12,
                       marginTop: 12,
@@ -88,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                               .signinWithEmailAndPassword(
                                   email: email, password: password)
                               .then((value) {
-                            if (value == true) Get.toNamed(AppRoutes.HOMEpAGE);
+                            if (value != true) Get.toNamed(AppRoutes.HOMEpAGE);
                           })
                         },
                         text: "Login ",

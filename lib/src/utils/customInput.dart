@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:njadia/src/constants/style/appfont.dart';
 import 'package:njadia/src/constants/style/color.dart';
+import 'package:njadia/src/utils/theme/themes.dart';
 
 class CustomInput extends StatelessWidget {
   const CustomInput(
@@ -32,10 +33,11 @@ class CustomInput extends StatelessWidget {
         children: [
           Text(
             text,
-            style: AppFonts.defaultFontsBold3,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
           Container(
             child: TextField(
+              style: Theme.of(context).textTheme.displayMedium,
                 onChanged: (value) {
                   controller(value);
                 },
