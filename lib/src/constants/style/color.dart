@@ -6,6 +6,8 @@ class AppColor {
   static const Color blackColor = Color(0xff000000);
   static const Color purpleColor = Color(0xff9300ff);
   static const Color grayColor = Color(0xffBEBEBE);
+   static const Color cardColor = Color(0xff33313B);
+    //  static const Color cardColor = Color(0xff393646);
 
   
 }

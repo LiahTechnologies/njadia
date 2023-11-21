@@ -68,7 +68,7 @@ class AppTheme {
 // color for cards
 
   cardTheme: CardTheme(
-    color: AppColor.grayColor
+    color: AppColor.cardColor
   )
 
 // typography: Typography(black: TextTheme())

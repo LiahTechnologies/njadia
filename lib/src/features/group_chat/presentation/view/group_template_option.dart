@@ -5,6 +5,8 @@ import 'package:njadia/src/features/group_chat/presentation/widgets/custom_card_
 import 'package:njadia/src/utils/CustomButton.dart';
 import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/constants/style/appfont.dart';
+import 'package:njadia/src/utils/customGetxButtomSheet.dart';
+import 'package:njadia/src/warnings/coming%20_soon.dart';
 
 import '../../../../constants/style/appAsset.dart';
 
@@ -20,21 +22,17 @@ class GroupTemplateOption extends StatelessWidget {
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             SizedBox(
+            SizedBox(
               height: 6.h,
             ),
-            Text(
-              "Create Your Njadia Group",
-              style: Theme.of(context).textTheme.titleMedium
-            ),
+            Text("Create Your Njadia Group",
+                style: Theme.of(context).textTheme.titleMedium),
 
-             SizedBox(
+            SizedBox(
               height: 10.h,
             ),
-            Text(
-              "Begin your collective saving journey. Experience the power",
-              style: Theme.of(context).textTheme.displayMedium
-            ),
+            Text("Begin your collective saving journey. Experience the power",
+                style: Theme.of(context).textTheme.displayMedium),
             Text(
               "of communal finance",
               style: Theme.of(context).textTheme.displayMedium,
@@ -61,22 +59,31 @@ class GroupTemplateOption extends StatelessWidget {
             CustomCardItems(
               image: AppImages.WORLD1_ICON,
               text: "Famers Njangi ",
-              onTap: () {},
+              onTap: () {
+                 customGetxBottomsheet(ComiingSoon());
+              },
             ),
             CustomCardItems(
               image: AppImages.WORLD2_ICON,
               text: "Smaill Businesses ",
-              onTap: () {},
+              onTap: () {
+                customGetxBottomsheet(ComiingSoon());
+              },
             ),
             CustomCardItems(
               image: AppImages.WORLD_ICON,
               text: "Friends",
-              onTap: () {},
+              onTap: () {
+                 customGetxBottomsheet(ComiingSoon());
+              },
             ),
             CustomCardItems(
               image: AppImages.WORLD3_ICON,
               text: "Friends ",
-              onTap: () {},
+              onTap: () {
+                  customGetxBottomsheet(ComiingSoon());
+              }
+             
             ),
 
             // CustomCardItems(
@@ -85,12 +92,15 @@ class GroupTemplateOption extends StatelessWidget {
             CustomCardItems(
               image: AppImages.WORLD5_ICON,
               text: "Local Community ",
-              onTap: () {},
+              onTap: () {
+                 customGetxBottomsheet(ComiingSoon());
+              },
             ),
             SizedBox(height: 30.h),
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-              child: Text("Have an invitation?", style: Theme.of(context).textTheme.displayMedium),
+              child: Text("Have an invitation?",
+                  style: Theme.of(context).textTheme.displayMedium),
             ),
 
             CustomButton(
