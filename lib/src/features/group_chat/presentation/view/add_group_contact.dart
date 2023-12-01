@@ -19,6 +19,7 @@ class _AddContactsState extends State<AddContacts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w),

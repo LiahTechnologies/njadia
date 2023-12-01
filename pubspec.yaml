@@ -52,6 +52,12 @@ dependencies:
   # google_ml_kit:
   # google_mlkit_face_detection:
 
+  curved_navigation_bar: ^1.0.3
+
+  # line icons
+  line_icons: ^2.0.3
+  swipe_to: ^1.0.4
+
 
 dev_dependencies:
   flutter_test:

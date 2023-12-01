@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:njadia/src/features/payment/presentation/widgets/customPaymentInput.dart';
 import 'package:njadia/src/utils/CustomButton.dart';
 import 'package:njadia/src/constants/style/appAsset.dart';
 import 'package:njadia/src/constants/style/appfont.dart';
 import 'package:njadia/src/constants/style/color.dart';
+import 'package:njadia/src/warnings/custombackarrow.dart';
 
 class SendMoneyDetail extends StatelessWidget {
   SendMoneyDetail(
@@ -16,57 +18,40 @@ class SendMoneyDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        centerTitle: true,
+        leading: CustomBackArrow(),
+        title:  Column(
+                    children: [
+                      Text(
+                        "Send  Money",
+                        style: Theme.of(context).textTheme.displayMedium
+                      ),
+                      Text(
+                        "Ekondo Njangi",
+                       style: Theme.of(context).textTheme.displaySmall
+                      ),
+                    ],
+                  ),
+      ),
       body: SafeArea(
         child: Container(
             child: Column(
           children: [
-            SizedBox(
-              // width: 250.w,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  TextButton.icon(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: AppColor.greenColor,
-                      ),
-                      label: Text(
-                        "Back",
-                        style: AppFonts.defaultFonts,
-                      )),
-                  SizedBox(
-                    width: 50.w,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "Send  Money",
-                        style: AppFonts.heading3,
-                      ),
-                      Text(
-                        "Ekondo Njangi",
-                        style: AppFonts.defaultFonts,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Divider(),
+
             Text.rich(TextSpan(children: [
-              TextSpan(text: "Send the sum of", style: AppFonts.defaultFonts),
+              TextSpan(text: "Send the sum of",   style: Theme.of(context).textTheme.displaySmall),
               TextSpan(
                   text: " ${this.amount}",
-                  style: AppFonts.heading3.copyWith(fontSize: 14))
+                  style:  Theme.of(context).textTheme.displayMedium!.copyWith(fontWeight: FontWeight.w800))
             ])),
             Text.rich(TextSpan(children: [
-              TextSpan(text: "To ", style: AppFonts.defaultFonts),
+              TextSpan(text: "To ", style: Theme.of(context).textTheme.displaySmall),
               TextSpan(
                   text: "${this.name}",
-                  style: AppFonts.heading3.copyWith(fontSize: 14))
+                  style:Theme.of(context).textTheme.displayMedium)
             ])),
             SizedBox(
               height: 5.h,
@@ -76,10 +61,10 @@ class SendMoneyDetail extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.w),
               height: 50.h,
               width: double.infinity,
-              color: AppColor.greenColor,
+              color: Theme.of(context).cardTheme.color,
               child: Text(
                 "PAYMENT METHOD",
-                style: AppFonts.defaultWhite,
+                style: Theme.of(context).textTheme.displayMedium
               ),
             ),
             Align(
@@ -88,7 +73,7 @@ class SendMoneyDetail extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 18.0),
                 child: Text(
                   "MoMo User",
-                  style: AppFonts.defaultBlack.copyWith(fontSize: 20),
+                 style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),
             ),
@@ -99,11 +84,11 @@ class SendMoneyDetail extends StatelessWidget {
                 children: [
                   Text(
                     "Recipient Number",
-                    style: AppFonts.defaultFonts,
+                    style: Theme.of(context).textTheme.displaySmall
                   ),
                   Text(
                     "670034409",
-                    style: AppFonts.defaultFonts,
+                   style: Theme.of(context).textTheme.displaySmall
                   ),
                   Container(
                     padding: EdgeInsets.all(5),
@@ -111,7 +96,8 @@ class SendMoneyDetail extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: AppColor.greenColor)),
                     child: Row(
-                      children: [Text("Change"), Icon(Icons.arrow_drop_down)],
+                      children: [Text("Change",style: Theme.of(context).textTheme.displaySmall), 
+                      Icon(Icons.arrow_drop_down,color: Theme.of(context).iconTheme.color,)],
                     ),
                   ),
                 ],
@@ -119,7 +105,7 @@ class SendMoneyDetail extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
-              child: TextField(),
+              child: CustomPaymetInput()
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -128,11 +114,11 @@ class SendMoneyDetail extends StatelessWidget {
                 children: [
                   Text(
                     "Amount (XAF)",
-                    style: AppFonts.defaultFonts,
+                   style: Theme.of(context).textTheme.displaySmall
                   ),
                   Text(
                     "25,000",
-                    style: AppFonts.defaultFonts,
+                   style: Theme.of(context).textTheme.displaySmall
                   ),
                   Container(
                     padding: EdgeInsets.all(5),
@@ -140,7 +126,8 @@ class SendMoneyDetail extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: AppColor.greenColor)),
                     child: Row(
-                      children: [Text("Change"), Icon(Icons.arrow_drop_down)],
+                      children: [Text("Change",style: Theme.of(context).textTheme.displaySmall),
+                       Icon(Icons.arrow_drop_down,color: Theme.of(context).iconTheme.color,)],
                     ),
                   ),
                 ],
@@ -148,7 +135,7 @@ class SendMoneyDetail extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
-              child: TextField(),
+              child: CustomPaymetInput(),
             ),
             Align(
               alignment: Alignment.centerLeft,
@@ -156,18 +143,13 @@ class SendMoneyDetail extends StatelessWidget {
                 padding: EdgeInsets.only(left: 15.0.w, top: 10.h),
                 child: Text(
                   "My Reference",
-                  style: AppFonts.defaultFonts,
+                 style: Theme.of(context).textTheme.displaySmall
                 ),
               ),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText:
-                        "My njangi payment to Erling Haland in Ekondo Njangi",
-                    hintStyle: TextStyle(fontSize: 14)),
-              ),
+              child:CustomPaymetInput()
             ),
             SizedBox(
               height: 50.h,

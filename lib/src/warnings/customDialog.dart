@@ -40,10 +40,10 @@ class CustomDailog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             CustomButton(
-                borderColor: AppColor.greenColor,
-                containerColor: AppColor.whiteColor,
+                // borderColor: AppColor.greenColor,
+                // containerColor: AppColor.whiteColor,
                 // textColor: AppColor.greenColor,
-                width: 97.w,
+                width: 105.w,
                 height: 50.h,
                 icon: null,
                 onPress: () {
@@ -55,10 +55,10 @@ class CustomDailog extends StatelessWidget {
               width: 10.w,
             ),
             CustomButton(
-                borderColor: AppColor.greenColor,
-                containerColor: AppColor.whiteColor,
+                // borderColor: AppColor.greenColor,
+                // containerColor: AppColor.gr,
                 // textColor: AppColor.greenColor,
-                width: 97.w,
+                width: 105.w,
                 height: 50.h,
                 icon: null,
                 onPress: () {

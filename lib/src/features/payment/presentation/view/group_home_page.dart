@@ -32,6 +32,7 @@ class _GroupHomePageState extends State<GroupHomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Container(
           padding: EdgeInsets.only(top: 5.h),
           child: Row(

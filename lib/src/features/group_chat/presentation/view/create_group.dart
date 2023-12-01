@@ -8,6 +8,10 @@ import 'package:njadia/src/features/group_chat/presentation/controller/create_gr
 import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/utils/customInput.dart';
 import 'package:njadia/src/constants/style/appAsset.dart';
+import 'package:njadia/src/utils/opneCamera.dart';
+import 'package:njadia/src/warnings/custombackarrow.dart';
+import 'package:njadia/src/warnings/customeNotification.dart';
+import 'package:njadia/src/warnings/warning.dart';
 
 import '../../../../common/helper_function.dart';
 import '../../../../utils/CustomButton.dart';
@@ -29,43 +33,45 @@ class _CreateGroupState extends State<CreateGroup> {
   String groupLimit = '';
   String groupAmount = '';
 
-  
-  
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: CustomBackArrow(),
+          centerTitle: true,
+          title: Text("Create your Njangi group",
+              style: Theme.of(context).textTheme.titleMedium),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: TextButton.icon(
-                      onPressed: () {
-                        Get.back();
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        size: 11,
-                        color: Theme.of(context).iconTheme.color
-                      ),
-                      label: Text(
-                        "Back",
-                        style: Theme.of(context).textTheme.displayMedium,
-                      )),
-                ),
-                Center(child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Create your Njangi group", style: Theme.of(context).textTheme.titleMedium),
-                )),
-                Text(
-                  "Begin your collective saving journey, hangout and and",
-                  style: Theme.of(context).textTheme.displayMedium
-                ),
+                // Align(
+                //   alignment: Alignment.topLeft,
+                //   child: TextButton.icon(
+                //       onPressed: () {
+                //         Get.back();
+                //       },
+                //       icon: Icon(
+                //         Icons.arrow_back_ios,
+                //         size: 11,
+                //         color: Theme.of(context).iconTheme.color
+                //       ),
+                //       label: Text(
+                //         "Back",
+                //         style: Theme.of(context).textTheme.displayMedium,
+                //       )),
+                // ),
+                // Center(child: Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Text("Create your Njangi group", style: Theme.of(context).textTheme.titleMedium),
+                // )),
+                Text("Begin your collective saving journey, hangout and and",
+                    style: Theme.of(context).textTheme.displayMedium),
                 Text(
                   "experience the power of communal finance",
                   style: Theme.of(context).textTheme.displayMedium,
@@ -89,8 +95,12 @@ class _CreateGroupState extends State<CreateGroup> {
                                 backgroundImage: AssetImage(AppImages.PERSON),
                               ))),
                       Positioned(
-                          right: 25.w,
-                          top: 3.h,
+                        right: 25.w,
+                        top: 3.h,
+                        child: GestureDetector(
+                          onTap: () {
+                            openCamera(method: "gallery");
+                          },
                           child: Container(
                             width: 35.w,
                             height: 35.h,
@@ -102,7 +112,9 @@ class _CreateGroupState extends State<CreateGroup> {
                               color: Colors.white,
                               size: 25.w,
                             ),
-                          ))
+                          ),
+                        ),
+                      )
                     ]),
                   ),
                 ),
@@ -156,13 +168,21 @@ class _CreateGroupState extends State<CreateGroup> {
                 Center(
                   child: CustomButton(
                     onPress: () {
-                      print("CREATE BUTTON WAS CLICKED");
-                      contorller
-                          .createNewNjangiGroup(
-                              groupName: groupName,
-                              groupLevi: groupAmount,
-                              groupLimit: groupLimit)
-                          .then((Value) => Get.toNamed(AppRoutes.HOMEpAGE));
+                      if (groupAmount.isNotEmpty ||
+                          groupAmount.isNotEmpty ||
+                          groupLimit.isNotEmpty)
+                        contorller
+                            .createNewNjangiGroup(
+                                groupName: groupName,
+                                groupLevi: groupAmount,
+                                groupLimit: groupLimit)
+                            .then((Value) => Get.toNamed(AppRoutes.HOMEpAGE));
+                      else
+                        showDialog(
+                            context: context,
+                            builder: (context){
+                             return CustomWarning(text: "Fields can not be empty",);
+                            });
                     },
                     text: "CreatE Njangi",
                     icon: null,

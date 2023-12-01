@@ -42,7 +42,7 @@ class CustomInput extends StatelessWidget {
                   controller(value);
                 },
                 decoration:
-                    InputDecoration(border: InputBorder.none, hintText: hint)),
+                    InputDecoration( hintText: hint)),
           ),
         ],
       ),

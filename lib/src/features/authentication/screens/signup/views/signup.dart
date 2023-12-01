@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ import 'package:njadia/src/features/authentication/screens/signup/widgets/signup
 import 'package:country_picker/country_picker.dart';
 import 'package:njadia/src/utils/customInputWidget.dart';
 import 'package:njadia/src/utils/datePicker.dart';
+import 'package:njadia/src/warnings/warning.dart';
 import '../../../../../common/helper_function.dart';
 import '../../../../../constants/style/appAsset.dart';
 import '../../../../../utils/CustomDots.dart';
@@ -96,6 +98,7 @@ class _SignupState extends State<Signup> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: PageView(
           physics: NeverScrollableScrollPhysics(),
@@ -111,10 +114,8 @@ class _SignupState extends State<Signup> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Account Creation",
-                    style: Theme.of(context).textTheme.titleMedium
-                  ),
+                  Text("Account Creation",
+                      style: Theme.of(context).textTheme.titleMedium),
                   Container(
                     margin: EdgeInsets.only(top: 15.h, bottom: 15.h),
                     child: const Row(
@@ -132,15 +133,19 @@ class _SignupState extends State<Signup> {
                     child: RichText(
                         text: TextSpan(children: [
                       TextSpan(
-                          text: "Enter your ",style: Theme.of(context).textTheme.displayMedium),
+                          text: "Enter your ",
+                          style: Theme.of(context).textTheme.displayMedium),
                       TextSpan(
-                          text: "Email & Password", style:Theme.of(context).textTheme.displayMedium),
-                      TextSpan(text: " Below.", style: Theme.of(context).textTheme.displayMedium),
+                          text: "Email & Password",
+                          style: Theme.of(context).textTheme.displayMedium),
+                      TextSpan(
+                          text: " Below.",
+                          style: Theme.of(context).textTheme.displayMedium),
                     ])),
                   ),
                   Text(
                       "We will send  a 6 digit code to verify your phone  number",
-                      style:Theme.of(context).textTheme.displayMedium),
+                      style: Theme.of(context).textTheme.displayMedium),
                   CustomInputWidget(
                       borderRadius: 12,
                       marginTop: 12,
@@ -286,14 +291,52 @@ class _SignupState extends State<Signup> {
                       child: CustomButton(
                         onPress: () => {
                           // AuthController.registerWithPhoneNumber("+237", context),
-                          controller.nextPage(
-                              duration: const Duration(seconds: 1),
-                              curve: Curves.easeInOut)
+
+                          if (email.isNotEmpty ||
+                              password.isNotEmpty ||
+                              confirm.isNotEmpty)
+                            {
+                              if (password == confirm)
+                                controller.nextPage(
+                                    duration: const Duration(seconds: 1),
+                                    curve: Curves.easeInOut)
+                              else
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return CustomWarning(
+                                        text: "Password must match",
+                                      );
+                                    })
+                            }
+                          else
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CustomWarning(
+                                    text: "fields can not be empty",
+                                  );
+                                })
                         },
                         text: "Next",
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: Text.rich((TextSpan(children: [
+                      TextSpan(
+                          text: "If you already have an account",
+                          style: Theme.of(context).textTheme.displaySmall),
+                      TextSpan(
+                          text: " Login",
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.toNamed(AppRoutes.LOGIN);
+                            },
+                          style: Theme.of(context).textTheme.labelSmall)
+                    ]))),
+                  )
                 ],
               ),
             ),
@@ -302,7 +345,7 @@ class _SignupState extends State<Signup> {
              * VERIFY OTP CODE
              */
 
-          /*
+            /*
             Container(
               margin: EdgeInsets.only(
                   top: 12.h, left: 12.w, right: 12.w, bottom: 7.h),
@@ -462,7 +505,6 @@ class _SignupState extends State<Signup> {
 
               */
 
-
             /**
              * THIS IS THE THIRD PART
              */
@@ -473,10 +515,8 @@ class _SignupState extends State<Signup> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Account Creation",
-                    style: Theme.of(context).textTheme.titleMedium
-                  ),
+                  Text("Account Creation",
+                      style: Theme.of(context).textTheme.titleMedium),
                   Container(
                     margin: EdgeInsets.only(top: 15.h, bottom: 15.h),
                     child: const Row(
@@ -525,7 +565,7 @@ class _SignupState extends State<Signup> {
                   //   lastNamecontroller: lastName,
                   // ),
 
-                 CustomInputWidget(
+                  CustomInputWidget(
                       borderRadius: 12,
                       marginTop: 12,
                       text: "First Name",
@@ -533,7 +573,7 @@ class _SignupState extends State<Signup> {
                         firstName.text = v;
                       }),
 
-                 CustomInputWidget(
+                  CustomInputWidget(
                       borderRadius: 12,
                       marginTop: 12,
                       text: "Last Name",
@@ -545,10 +585,8 @@ class _SignupState extends State<Signup> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Date Of Birth",
-                          style: Theme.of(context).textTheme.displayMedium
-                        ),
+                        Text("Date Of Birth",
+                            style: Theme.of(context).textTheme.displayMedium),
                         SizedBox(
                           width: 130.w,
                           child: TextField(
@@ -628,7 +666,9 @@ class _SignupState extends State<Signup> {
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     hintText: "phone number",
-                                    hintStyle: Theme.of(context).textTheme.displayMedium,
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
                                     border: InputBorder.none),
                               ),
                             ),
@@ -658,10 +698,8 @@ class _SignupState extends State<Signup> {
                         " and",
                         style: Theme.of(context).textTheme.displayMedium,
                       ),
-                      Text(
-                        " Privacy Policy",
-                        style: Theme.of(context).textTheme.displayMedium
-                      ),
+                      Text(" Privacy Policy",
+                          style: Theme.of(context).textTheme.displayMedium),
                     ],
                   ),
                   Padding(
@@ -669,9 +707,23 @@ class _SignupState extends State<Signup> {
                     child: Align(
                       alignment: Alignment.topRight,
                       child: CustomButton(
-                        onPress: () => controller.nextPage(
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.easeInOut),
+                        onPress: () {
+                          if (firstName.text.isNotEmpty ||
+                              lastName.text.isNotEmpty ||
+                              phoneNumber.text.isNotEmpty ||
+                              dateOfBirth.text.isNotEmpty)
+                            controller.nextPage(
+                                duration: const Duration(seconds: 1),
+                                curve: Curves.easeInOut);
+                          else
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CustomWarning(
+                                    text: "Fields can not be empty",
+                                  );
+                                });
+                        },
                         text: "Continue",
                       ),
                     ),
@@ -1279,7 +1331,7 @@ class _SignupState extends State<Signup> {
       // if (smileprop != null && smileprop < 0.45) {}
       // }
     }
-  }*/  
+  }*/
 
   Future<bool> register() async {
     setState(() {

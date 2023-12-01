@@ -5,36 +5,24 @@ import 'package:njadia/src/constants/style/appAsset.dart';
 import 'package:njadia/src/constants/style/appfont.dart';
 import 'package:njadia/src/constants/style/color.dart';
 
-class CustomNotification extends StatelessWidget {
-  const CustomNotification({super.key, this.text="Friend request sent"});
+class CustomWarning extends StatelessWidget {
+  const CustomWarning({super.key, this.text="Friend request sent"});
   final String text;
   @override
   Widget build(BuildContext context) {
     return Container(
         child: SimpleDialog(alignment: Alignment.center, children: [
-      Image.asset(AppImages.SEND_ICON, width: 90, height: 60),
+          Icon(Icons.warning,size: 18,color: Colors.red,),
       Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
             text,
-            style: AppFonts.defaultFonts,
+            style: Theme.of(context).textTheme.displayMedium,
           ),
         ),
       ),
-      Center(
-        child: CustomButton(
-            borderColor: AppColor.greenColor,
-            containerColor: AppColor.whiteColor,
-            // textColor: AppColor.greenColor,
-            width: 90,
-            height: 50,
-            icon: null,
-            onPress: () {
-              Get.back();
-            },
-            text: "Return"),
-      )
+     
     ]));
   }
 }

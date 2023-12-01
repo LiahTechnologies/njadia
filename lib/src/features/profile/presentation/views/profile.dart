@@ -5,7 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:njadia/src/constants/style/appAsset.dart';
 import 'package:njadia/src/constants/style/color.dart';
+import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/utils/opneCamera.dart';
+import 'package:njadia/src/utils/theme/themeController.dart';
+import 'package:njadia/src/utils/theme/themes.dart';
 import 'package:njadia/src/warnings/customDialog.dart';
 import 'package:njadia/src/warnings/custombackarrow.dart';
 
@@ -20,40 +23,64 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   late File newProfileImage;
-  bool isDarkness = false;
+
+
+  final Controller = Get.put(ThemeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        leading: const CustomBackArrow(),
+        automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         centerTitle: true,
         title: Text(
           "Profile",
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
+        actions: [
+          !Get.isDarkMode
+              ? IconButton(
+                  icon: Icon(
+                    Icons.sunny,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  onPressed: () {
+                    Get.isDarkMode
+                        ? Get.changeTheme(AppTheme.darkTheme)
+                        : Get.changeTheme(AppTheme.lightTheme);
+                    Controller.changeTheme(true);
+                    // Get.changeThemeMode(
+                    //     Get.isDarkMode ? AppTheme.darkTheme : ThemeMode.light);
+                  },
+                )
+              : IconButton(
+                  onPressed: () {
+                    Get.isDarkMode
+                        ? Get.changeTheme(AppTheme.darkTheme)
+                        : Get.changeTheme(AppTheme.lightTheme);
+                    Controller.changeTheme(false);
+                  },
+                  icon: Icon(
+                    Icons.dark_mode,
+                    color: Theme.of(context).iconTheme.color,
+                  )),
+          IconButton(
+              onPressed: () {
+                Get.toNamed(AppRoutes.LOGIN);
+              },
+              icon: Icon(
+                Icons.logout,
+                color: Theme.of(context).iconTheme.color,
+              )),
+        ],
       ),
       body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: isDarkness
-                  ? IconButton(
-                      icon: Icon(Icons.sunny),
-                      onPressed: () {
-                        setState(() {
-                          isDarkness = !isDarkness;
-                        });
-                      },
-                    )
-                  : IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isDarkness = !isDarkness;
-                        });
-                      },
-                      icon: Icon(Icons.dark_mode)),
+            SizedBox(
+              height: 10.h,
             ),
             Center(
               child: Stack(
@@ -65,24 +92,23 @@ class _ProfileState extends State<Profile> {
                   )),
                   Positioned(
                     top: 20.h,
-                    left: 90.w,
+                    left: 96.w,
                     child: InkWell(
-                      onTap: () => openCamera("gallery").then((value) {
+                      onTap: () => openCamera(method:"gallery").then((value) {
                         // setState(() {
                         //   newProfileImage = value;
                         // });
                       }),
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-                        height: 35,
-                        width: 35,
+                            EdgeInsets.all(2),
+                        
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
                             color: AppColor.whiteColor),
                         child: Container(
-                            height: 30,
-                            width: 30,
+                            height: 22.h,
+                            width: 22.w,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: AppColor.greenColor),
@@ -112,39 +138,7 @@ class _ProfileState extends State<Profile> {
               ),
             ),
 
-            // Stack(
-            //   children: [
-
-            //       Positioned(
-            //         top: 22.h,
-            //         left: 75.w,
-            //         child: InkWell(
-            //           onTap: () {},
-
-            //           child: Container(
-            //             padding:
-            //                 EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-            //             height: 19,
-            //             width: 19,
-            //             decoration: BoxDecoration(
-            //                 borderRadius: BorderRadius.circular(20),
-            //                 color: AppColor.whiteColor),
-            //             child: Container(
-            //                 height: 19,
-            //                 width: 19,
-            //                 decoration: BoxDecoration(
-            //                     borderRadius: BorderRadius.circular(20),
-            //                     color: AppColor.purpleColor),
-            //                 child: Icon(
-            //                   Icons.edit,
-            //                   color: AppColor.whiteColor,
-            //                   size: 10,
-            //                 )),
-            //           ),
-            //         ),
-            //       )
-            //   ],
-            // ),
+          
             Text("lexi@gmail.com",
                 style: Theme.of(context).textTheme.displayMedium),
             SizedBox(
@@ -162,42 +156,53 @@ class _ProfileState extends State<Profile> {
                 ),
                 profileText(number: 23, text: "Age"),
                 Container(
+                  
                   height: 40,
                   width: 2,
                   color: AppColor.greenColor,
                 ),
+
                 Stack(
                   children: [
                     profileText(number: 672973390, text: "Telephone"),
                     Positioned(
-                      top: 22.h,
-                      left: 75.w,
+                      top: 20.h,
+                      left: 79.w,
                       child: InkWell(
                         onTap: () {
                           showDialog(
                               context: context,
                               builder: (context) => const CustomDailog());
                         },
-                        child: Container(
+                        child: 
+                              Icon(
+                                Icons.edit,
+                                color: AppColor.greenColor,
+                                size: 15,
+                              )
+                        
+                        /* Container(
                           padding:
-                              EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-                          height: 19,
-                          width: 19,
+                              EdgeInsets.all(1),
+                          // height: 16,
+                          // width: 16,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: AppColor.whiteColor),
                           child: Container(
-                              height: 19,
-                              width: 19,
+                              height: 15,
+                              width: 15,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: AppColor.greenColor),
-                              child: Icon(
+                              child: 
+                              Icon(
                                 Icons.edit,
                                 color: AppColor.whiteColor,
                                 size: 10,
-                              )),
-                        ),
+                              )
+                              ),
+                        ),*/
                       ),
                     )
                   ],
@@ -244,7 +249,7 @@ class _ProfileState extends State<Profile> {
       height: 50.h,
       margin: EdgeInsets.symmetric(horizontal: 15.w, vertical: 3.h),
       child: Card(
-        color: Theme.of(context).cardTheme.color,
+        color: Theme.of(context).colorScheme.primary,
         elevation: 3.0,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

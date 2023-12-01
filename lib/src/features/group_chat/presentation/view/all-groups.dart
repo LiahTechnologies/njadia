@@ -17,9 +17,9 @@ class AllGroups extends StatefulWidget {
 }
 
 class _AllGroupsState extends State<AllGroups> {
-
-   final TextEditingController searchController = TextEditingController();
-
+  final TextEditingController searchController = TextEditingController();
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
   @override
   void initState() {
     getUserData();
@@ -46,7 +46,10 @@ class _AllGroupsState extends State<AllGroups> {
         .then((snapshot) {
       setState(() {
         group = snapshot;
+       
       });
+
+       print(" THE NUMBER OF GROUPS ");
     });
 
     print(
@@ -61,33 +64,46 @@ class _AllGroupsState extends State<AllGroups> {
   String getName(String res) {
     return res.substring(res.indexOf("_") + 1);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-          automaticallyImplyLeading: false,
-          title: Text("Njangi Groups"),
-          centerTitle: true,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        automaticallyImplyLeading: false,
+        title: Text(
+          "Njangi Groups",
+          style: Theme.of(context).textTheme.titleMedium,
         ),
-      body: Container(
-        width: double.infinity,
-        child: grouplist(),
+        centerTitle: true,
       ),
-
-       floatingActionButton: FloatingActionButton(
-          onPressed: () => Get.toNamed(AppRoutes.CREATE_GROUP_TEMPLATE),
-          child: const Icon(
-            Icons.add,
-            color: AppColor.whiteColor,
+      body: RefreshIndicator(
+        key: refreshIndicatorKey,
+        onRefresh: () async {
+          await getUserData();
+        },
+        child: Container(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [grouplist()],
+            ),
           ),
-          backgroundColor: AppColor.greenColor,
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed(AppRoutes.CREATE_GROUP_TEMPLATE),
+        child: const Icon(
+          Icons.add,
+          color: AppColor.whiteColor,
+        ),
+        backgroundColor: AppColor.greenColor,
+      ),
     );
   }
 
-
-    grouplist() {
+  grouplist() {
     return StreamBuilder(
         stream: group,
         builder: (context, AsyncSnapshot snapshot) {

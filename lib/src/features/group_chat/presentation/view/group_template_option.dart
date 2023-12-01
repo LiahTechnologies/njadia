@@ -7,6 +7,7 @@ import 'package:njadia/src/routing/approutes.dart';
 import 'package:njadia/src/constants/style/appfont.dart';
 import 'package:njadia/src/utils/customGetxButtomSheet.dart';
 import 'package:njadia/src/warnings/coming%20_soon.dart';
+import 'package:njadia/src/warnings/custombackarrow.dart';
 
 import '../../../../constants/style/appAsset.dart';
 
@@ -16,17 +17,25 @@ class GroupTemplateOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: Theme.of(context).colorScheme.background,
+       appBar: AppBar(
+        leading:CustomBackArrow(),
+       title: Text("Create Your Njadia Group",
+                style: Theme.of(context).textTheme.titleMedium),centerTitle: true, ),
         body: SafeArea(
+      
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w),
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 6.h,
-            ),
-            Text("Create Your Njadia Group",
-                style: Theme.of(context).textTheme.titleMedium),
+            // Align(
+            //   alignment: Alignment.topLeft,
+            //   child: C),
+            // SizedBox(
+            //   height: 6.h,
+            // ),
+            
 
             SizedBox(
               height: 10.h,
@@ -60,31 +69,45 @@ class GroupTemplateOption extends StatelessWidget {
               image: AppImages.WORLD1_ICON,
               text: "Famers Njangi ",
               onTap: () {
-                 customGetxBottomsheet(ComiingSoon());
+                 showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ComiingSoon();
+                      });
               },
             ),
             CustomCardItems(
               image: AppImages.WORLD2_ICON,
               text: "Smaill Businesses ",
               onTap: () {
-                customGetxBottomsheet(ComiingSoon());
+                 showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ComiingSoon();
+                      });
               },
             ),
             CustomCardItems(
               image: AppImages.WORLD_ICON,
               text: "Friends",
               onTap: () {
-                 customGetxBottomsheet(ComiingSoon());
+                 showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ComiingSoon();
+                      });
               },
             ),
             CustomCardItems(
-              image: AppImages.WORLD3_ICON,
-              text: "Friends ",
-              onTap: () {
-                  customGetxBottomsheet(ComiingSoon());
-              }
-             
-            ),
+                image: AppImages.WORLD3_ICON,
+                text: "Friends ",
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ComiingSoon();
+                      });
+                }),
 
             // CustomCardItems(
             // image: AppImages.WORLD4_ICON, text: "Local Community "),
@@ -93,7 +116,11 @@ class GroupTemplateOption extends StatelessWidget {
               image: AppImages.WORLD5_ICON,
               text: "Local Community ",
               onTap: () {
-                 customGetxBottomsheet(ComiingSoon());
+                showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ComiingSoon();
+                      });
               },
             ),
             SizedBox(height: 30.h),

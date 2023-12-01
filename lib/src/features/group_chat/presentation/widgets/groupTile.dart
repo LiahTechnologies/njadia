@@ -18,6 +18,9 @@ class GroupTile extends StatefulWidget {
 }
 
 class _GroupTileState extends State<GroupTile> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -25,7 +28,10 @@ class _GroupTileState extends State<GroupTile> {
         Get.to(ChatPage(
             groupId: widget.groupid!,
             groupName: widget.groupName!,
-            userName: widget.userName!));
+            userName: widget.userName!),
+            transition: Transition.zoom,
+            
+            );
       },
       child: Container(
         height: 50.h,

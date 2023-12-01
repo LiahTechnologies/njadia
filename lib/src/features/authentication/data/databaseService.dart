@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseServices {
   final String? uid;
@@ -9,6 +10,8 @@ class DatabaseServices {
       FirebaseFirestore.instance.collection("users");
   final CollectionReference groupCollection =
       FirebaseFirestore.instance.collection("group");
+  final CollectionReference chatCollection =
+      FirebaseFirestore.instance.collection("chats");
 
   Future updateUserData({
     required String firstName,
@@ -24,6 +27,7 @@ class DatabaseServices {
       "phoneNumber": phoneNumber,
       'dataOfBirth': dateOfBirth,
       'groups': [],
+      'chats': [],
       'uid': uid
     });
 
@@ -57,8 +61,6 @@ class DatabaseServices {
       "recentMessage": "",
       "recentMessageSender": ""
     });
-
-    print("UPDATING NJANGI FIELDS");
 
     await groupDocumentReference.update({
       'members': FieldValue.arrayUnion(["${id}_$userName"]),
@@ -100,7 +102,7 @@ class DatabaseServices {
 
   Future<bool> isUserJoin(
       {required groupName, required groupId, required userName}) async {
-    DocumentReference userDocumentReference = userCollection.doc(uid);
+    DocumentReference userDocumentReference = userCollection.doc(uid!);
     DocumentSnapshot documentSnapshot = await userDocumentReference.get();
 
     List<dynamic> groups = await documentSnapshot['groups'];
@@ -115,7 +117,7 @@ class DatabaseServices {
 
   // toggling the join or not button
 
-  Future toggleGroupJoin(
+  Future<bool> toggleGroupJoin(
       {required groupId, required userName, required groupName}) async {
     DocumentReference userDocumentReference = userCollection.doc(uid);
     DocumentReference groupDocumentReference = groupCollection.doc(groupId);
@@ -125,20 +127,27 @@ class DatabaseServices {
 
     //
 
+    // print("JOIN GROUP DETIALS ${groupId}  $groupName userid: $uid ");
+
     if (groups.contains("${groupId}_${userName}")) {
+      print(" IF JOIN GROUP DETIALS ${groupId}  $groupName userid: $uid ");
       await userDocumentReference.update({
         'groups': FieldValue.arrayRemove(["${groupId}_$groupName"])
       });
       await groupDocumentReference.update({
         "members": FieldValue.arrayRemove(["${uid}_${userName}"])
       });
+      return true;
     } else {
+      print(
+          " else JOIN GROUP DETIALS ${groupId}  $groupName userid: $uid   $userName    $groupName");
       await userDocumentReference.update({
         'groups': FieldValue.arrayUnion(["${groupId}_$groupName"])
       });
       await groupDocumentReference.update({
         "members": FieldValue.arrayUnion(["${uid}_${userName}"])
       });
+      return true;
     }
   }
 
@@ -148,7 +157,55 @@ class DatabaseServices {
     groupCollection.doc(groupId).update({
       'recentMessage': chatMessages['message'],
       'recentMessageSender': chatMessages['sender'],
+      'recentMessageTime': chatMessages['time'].toString(),
+      "isReply":chatMessages['isReply'],
+      "replyMessage":chatMessages['replyMessage'],
+      "replySender":chatMessages['replySender']
+    });
+  }
+
+  // DIRECT MESSAGING
+
+  Future createChat(
+      {required String recipientId, required String recipientName}) async {
+    // DocumentReference chatDocumentReference = await chatCollection.add({
+    //   "chatId": recipientId,
+    //   "recipientName": recipientName,
+    //   "recentMessage": "",
+    //   "recentMessageSender": ""
+    // });
+
+    // await chatDocumentReference.update({'chatId': chatDocumentReference.id});
+
+    // DocumentReference userDocumentReference = userCollection.doc(recipientId);
+    // return await userDocumentReference.update({
+    //   'chats':
+    //       FieldValue.arrayUnion(["${chatDocumentReference.id}_$recipientId"])
+    // });
+
+    DocumentReference userDocumentReference = userCollection.doc(recipientId);
+    // userDocumentReference.update(data)
+    // if(userCollection.where("chats", isEqualTo: recipientId).count().)
+    return await userDocumentReference.update({
+      'chats': FieldValue.arrayUnion(["${recipientId}_$recipientName"])
+    });
+  }
+
+  Future sendChatMessage(
+      {required chatId, required Map<String, dynamic> chatMessages}) async {
+    chatCollection.doc(chatId).collection("messages").add(chatMessages);
+    chatCollection.doc(chatId).update({
+      'recentMessage': chatMessages['message'],
+      'recentMessageSender': chatMessages['sender'],
       'recentMessageTime': chatMessages['time'].toString()
     });
+  }
+
+  Future<Stream<QuerySnapshot>> getChatMessages(String chatId) async {
+    return chatCollection
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('time')
+        .snapshots();
   }
 }

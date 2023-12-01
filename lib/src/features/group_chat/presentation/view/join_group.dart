@@ -12,6 +12,7 @@ class JoinGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
       child: Container(
         padding: EdgeInsets.only(left: 15.w, right: 15.w),
