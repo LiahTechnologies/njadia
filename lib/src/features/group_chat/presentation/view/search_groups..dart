@@ -117,9 +117,12 @@ class _SearchGroupsState extends State<SearchGroups> {
           //     })
 
           isLoading
-              ? Center(
+              ? Container(
+                height: 300.h,
+                child: Center(
                   child: CircularProgressIndicator(color: AppColor.purpleColor,),
-                )
+                ),
+              )
               : Container(
                   child: groupList(),
                 )
